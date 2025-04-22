@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:ruoyi_app/pages/nearby_doctor/index.dart';
 
 class HomeIndex extends StatefulWidget {
   const HomeIndex({Key? key}) : super(key: key);
@@ -42,8 +43,12 @@ class _HomeIndexState extends State<HomeIndex> {
                   SizedBox(height: 24),
                   InkWell(
                     onTap: () {
-                      // 在这里添加激活紧急救援的逻辑
-                      print("紧急救助按钮被点击");
+                      // 跳转到附近医生页面
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => NearbyDoctorPage(),
+                        ),
+                      );
                     },
                     child: Container(
                       width: 160,
