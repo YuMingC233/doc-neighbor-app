@@ -9,6 +9,15 @@ pod install
 flutter run
 ```
 
+如果你的项目无法构建，请尝试下面的命令清空缓存和构建包并重试：
+```
+flutter clean
+flutter pub get
+cd ios
+rm -rf Pods, Podfile
+pod install
+```
+
 ## 平台简介
 
 RuoYi flutter App 客户端,APP解决方案，采用Flutter框架，一份代码多终端适配，同时支持Windows ,ios ,mac ,linux , android ,web！实现了与[RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue)对接的移动解决方案！目前已经实现登录、我的、工作台、等基础功能。

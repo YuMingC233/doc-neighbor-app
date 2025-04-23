@@ -183,84 +183,94 @@ class _HomeIndexState extends State<HomeIndex> {
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.red[50],
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 5,
-              offset: Offset(0, 2),
-            ),
-          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              "紧急救助请求！",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.red[600],
-              ),
-            ),
-            SizedBox(height: 12),
-            RichText(
-              text: TextSpan(
-                style: TextStyle(color: Colors.black87, fontSize: 14),
-                children: [
-                  TextSpan(
-                    text: "患者位置: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.red[50],
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 5,
+                    offset: Offset(0, 2),
                   ),
-                  TextSpan(text: "武汉市洪山区珞瑜路"),
                 ],
               ),
-            ),
-            SizedBox(height: 4),
-            RichText(
-              text: TextSpan(
-                style: TextStyle(color: Colors.black87, fontSize: 14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextSpan(
-                    text: "距离您: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Text(
+                    "紧急救助请求！",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red[600],
+                    ),
                   ),
-                  TextSpan(text: "0.5公里 (约2分钟)"),
+                  SizedBox(height: 12),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black87, fontSize: 14),
+                      children: [
+                        TextSpan(
+                          text: "患者位置: ",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(text: "武汉市洪山区珞瑜路"),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black87, fontSize: 14),
+                      children: [
+                        TextSpan(
+                          text: "距离您: ",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(text: "0.5公里 (约2分钟)"),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black87, fontSize: 14),
+                      children: [
+                        TextSpan(
+                          text: "病情描述: ",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(text: "突发胸痛，疑似心脏问题"),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: acceptRequest,
+                      icon: Icon(Icons.check),
+                      label: Text("接受请求"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red[600],
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-            SizedBox(height: 4),
-            RichText(
-              text: TextSpan(
-                style: TextStyle(color: Colors.black87, fontSize: 14),
-                children: [
-                  TextSpan(
-                    text: "病情描述: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: "突发胸痛，疑似心脏问题"),
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: acceptRequest,
-                icon: Icon(Icons.check),
-                label: Text("接受请求"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red[600],
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-            ),
+            )
           ],
         ),
       ),
@@ -387,4 +397,5 @@ class _HomeIndexState extends State<HomeIndex> {
       ),
     );
   }
+  
 }
