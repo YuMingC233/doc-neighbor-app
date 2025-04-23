@@ -60,66 +60,78 @@ class _NearbyDoctorPageState extends State<NearbyDoctorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(  // 确保内容不被状态栏遮挡
-        child: Column(
-          children: [
-            // 紧急求助提示条
-            Container(
-              padding: const EdgeInsets.all(16),
-              color: const Color(0xFFFEE2E2), // bg-red-100
-              child: Column(
-                children: [
-                  Text(
-                    "紧急求助已发送",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Color(0xFFDC2626), // text-red-600
-                    ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFFEE2E2), Colors.white],
+          ),
+        ),
+        child: SafeArea(  // 确保内容不被状态栏遮挡
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              children: [
+                // 紧急求助提示条
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  color: const Color(0xFFFEE2E2), // bg-red-100
+                  child: Column(
+                    children: [
+                      Text(
+                        "紧急求助已发送",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Color(0xFFDC2626), // text-red-600
+                        ),
+                      ),
+                      Text(
+                        "正在寻找附近医生...",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF4B5563), // text-gray-600
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    "正在寻找附近医生...",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF4B5563), // text-gray-600
-                    ),
-                  ),
-                ],
-              ),
-              width: double.infinity,
-              alignment: Alignment.center,
-            ),
-            
-            // 主要内容区域
-            Expanded(
-              child: acceptedDoctor != null 
-                  ? _buildAcceptedDoctorView()
-                  : _buildNearbyDoctorsView(),
-            ),
-            
-            // 底部取消按钮
-            Padding(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 26), // 增加底部边距到26dp
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: cancelEmergency,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Text("取消求助"),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFD1D5DB), // bg-gray-300
-                    foregroundColor: Color(0xFF374151), // text-gray-700
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                ),
+                
+                // 主要内容区域
+                Expanded(
+                  child: acceptedDoctor != null 
+                      ? _buildAcceptedDoctorView()
+                      : _buildNearbyDoctorsView(),
+                ),
+                
+                // 底部取消按钮
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16, 16, 16, 26), // 增加底部边距到26dp
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: cancelEmergency,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        child: Text("取消求助"),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFD1D5DB), // bg-gray-300
+                        foregroundColor: Color(0xFF374151), // text-gray-700
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          )
+        )
       ),
     );
   }

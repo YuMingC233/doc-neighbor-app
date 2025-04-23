@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ruoyi_app/pages/work/index.dart';
 
 import 'home/index.dart';
+import 'package:ruoyi_app/pages/work/index.dart';
 import 'mine/index.dart';
 
 class PageIndex extends StatefulWidget {
@@ -16,7 +16,7 @@ class _PageIndexState extends State<PageIndex> {
 
   final List _pageList = [
     const HomeIndex(),
-    const WorkIndex(),
+    // const WorkIndex(),
     const MineIndex(),
   ];
 
@@ -33,7 +33,7 @@ class _PageIndexState extends State<PageIndex> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页"),
-          BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: "工作台"),
+          // BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: "工作台"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "我的"),
         ],
       ),
