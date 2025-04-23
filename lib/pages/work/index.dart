@@ -80,7 +80,7 @@ class _WorkIndexState extends State<WorkIndex> {
 
     ;
     List<Widget> _getListData1() {
-      listTab = GetStorage().read("route");
+      listTab = GetStorage().read("route"); // 这里在后台拿不到数据（null），所以这里才会报错
       var tempList = listTab.asMap().keys.map((index) {
         if (listTab[index]["hidden"] == false) {
           return InkWell(

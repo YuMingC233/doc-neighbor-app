@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ruoyi_app/pages/nearby_doctor/index.dart';
+import 'package:ruoyi_app/pages/mine/index.dart'; // 导入UserRoleManager
 
 class HomeIndex extends StatefulWidget {
   const HomeIndex({Key? key}) : super(key: key);
@@ -10,8 +12,41 @@ class HomeIndex extends StatefulWidget {
 }
 
 class _HomeIndexState extends State<HomeIndex> {
+  // 模拟状态变量
+  bool emergencyActive = false;
+  bool acceptedEmergency = false;
+  
+  @override
+  void initState() {
+    super.initState();
+    // 确保角色管理器已初始化
+    UserRoleManager().initUserRole();
+    
+    // 模拟一段时间后收到紧急请求
+    Future.delayed(Duration(seconds: 5), () {
+      if(mounted) {
+        setState(() {
+          emergencyActive = true;
+        });
+      }
+    });
+  }
+
+  void acceptRequest() {
+    setState(() {
+      acceptedEmergency = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    // 根据用户角色显示不同的UI
+    String userRole = UserRoleManager().userRole;
+    return userRole == '0' ? _buildPatientView() : _buildDoctorView();
+  }
+
+  // 普通用户（患者）视图
+  Widget _buildPatientView() {
     return Scaffold(
       body: Container(
         child: Column(
@@ -43,12 +78,8 @@ class _HomeIndexState extends State<HomeIndex> {
                   SizedBox(height: 24),
                   InkWell(
                     onTap: () {
-                      // 跳转到附近医生页面
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => NearbyDoctorPage(),
-                        ),
-                      );
+                      // 使用Get路由，避免Navigator堆栈问题
+                      Get.to(() => NearbyDoctorPage());
                     },
                     child: Container(
                       width: 160,
@@ -85,6 +116,270 @@ class _HomeIndexState extends State<HomeIndex> {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 医生视图
+  Widget _buildDoctorView() {
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          children: [
+            // 顶部蓝色标题栏
+            Container(
+              padding: EdgeInsets.all(16),
+              color: Colors.blue[600],
+              width: double.infinity,
+              child: SafeArea(
+                bottom: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "医生端",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      "您目前处于在线状态，可接收紧急救助请求",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            
+            // 主体内容区域
+            Expanded(
+              child: emergencyActive && !acceptedEmergency 
+                ? _buildEmergencyRequest()
+                : acceptedEmergency 
+                  ? _buildAcceptedRequest() 
+                  : _buildWaitingState(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 紧急救助请求卡片
+  Widget _buildEmergencyRequest() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.red[50],
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 5,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "紧急救助请求！",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.red[600],
+              ),
+            ),
+            SizedBox(height: 12),
+            RichText(
+              text: TextSpan(
+                style: TextStyle(color: Colors.black87, fontSize: 14),
+                children: [
+                  TextSpan(
+                    text: "患者位置: ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: "武汉市洪山区珞瑜路"),
+                ],
+              ),
+            ),
+            SizedBox(height: 4),
+            RichText(
+              text: TextSpan(
+                style: TextStyle(color: Colors.black87, fontSize: 14),
+                children: [
+                  TextSpan(
+                    text: "距离您: ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: "0.5公里 (约2分钟)"),
+                ],
+              ),
+            ),
+            SizedBox(height: 4),
+            RichText(
+              text: TextSpan(
+                style: TextStyle(color: Colors.black87, fontSize: 14),
+                children: [
+                  TextSpan(
+                    text: "病情描述: ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: "突发胸痛，疑似心脏问题"),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: acceptRequest,
+                icon: Icon(Icons.check),
+                label: Text("接受请求"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red[600],
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 已接受的请求状态
+  Widget _buildAcceptedRequest() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.green[50],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "您已接受此紧急救助！",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green[600],
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  "请尽快前往患者位置",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 16),
+          Container(
+            height: 200,
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.map,
+                    size: 40,
+                    color: Colors.grey[400],
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "导航至患者位置",
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 16),
+          ElevatedButton.icon(
+            onPressed: () {
+              // 联系患者功能
+            },
+            icon: Icon(Icons.phone),
+            label: Text("联系患者"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue[500],
+              foregroundColor: Colors.white,
+              padding: EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 等待状态
+  Widget _buildWaitingState() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.notifications_none,
+              size: 60,
+              color: Colors.blue[500],
+            ),
+            SizedBox(height: 16),
+            Text(
+              "等待紧急救助请求",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey[700],
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              "您将收到附近5公里范围内的紧急医疗救助请求",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey[500],
               ),
             ),
           ],

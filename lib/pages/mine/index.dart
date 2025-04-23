@@ -2,10 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:like_button/like_button.dart';
 import 'package:ruoyi_app/icon/ruoyi_icon.dart';
 
 import '../../api/system/user.dart';
+
+// 全局变量，用于存储用户角色类型，默认为普通用户
+class UserRoleManager {
+  static final UserRoleManager _instance = UserRoleManager._internal();
+  factory UserRoleManager() => _instance;
+  UserRoleManager._internal();
+  
+  String _userRole = '0'; // 默认为普通用户：'0'，医生：'1'
+  
+  String get userRole => _userRole;
+  
+  void setUserRole(String role) {
+    _userRole = role;
+    // 保存到存储中
+    GetStorage().write("userRole", role);
+  }
+  
+  void initUserRole() {
+    // 从存储中获取角色，如果没有则默认为'0'
+    _userRole = GetStorage().read("userRole") ?? '0';
+  }
+}
 
 class MineIndex extends StatefulWidget {
   const MineIndex({Key? key}) : super(key: key);
@@ -16,17 +37,61 @@ class MineIndex extends StatefulWidget {
 
 class _MineIndexState extends State<MineIndex> {
   @override
+  void initState() {
+    super.initState();
+    // 初始化用户角色
+    UserRoleManager().initUserRole();
+  }
+  
+  // 显示角色切换对话框
+  void _showRoleSwitchDialog() {
+    String currentRole = UserRoleManager().userRole;
+    String targetRole = currentRole == '0' ? '1' : '0';
+    String targetRoleName = targetRole == '0' ? '普通用户' : '医生';
+    
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text('切换角色'),
+        content: Text('是否要切换为$targetRoleName？'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('取消'),
+          ),
+          TextButton(
+            onPressed: () {
+              // 先关闭对话框
+              Navigator.of(context).pop();
+              
+              // 切换角色
+              UserRoleManager().setUserRole(targetRole);
+              
+              // 更新UI
+              setState(() {});
+              
+              // 使用Get导航到首页并清除所有之前的路由
+              // 使用Future.delayed确保pop操作完成后再执行导航
+              Future.delayed(Duration(milliseconds: 100), () {
+                Get.offAllNamed('/home');
+              });
+            },
+            child: Text('确认'),
+          ),
+        ],
+      )
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // 获取当前角色名称用于显示
+    String roleDisplayName = UserRoleManager().userRole == '0' ? '普通用户' : '医生';
+    
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              "我的",
-              style: TextStyle(color: Colors.black),
-            ),
-            backgroundColor: Colors.transparent, // 背景颜色设置为透明
-            shadowColor: Colors.transparent,
-          ),
           body: Container(
             child: ListView(
               children: [
@@ -36,7 +101,7 @@ class _MineIndexState extends State<MineIndex> {
                       alignment: const FractionalOffset(0.5, 0),
                       child: Container(
                         margin: EdgeInsets.only(),
-                        height: 150,
+                        height: 180,
                         color: Theme.of(context).colorScheme.secondary,
                         padding: EdgeInsets.only(top: 40),
                         child: ListTile(
@@ -60,15 +125,15 @@ class _MineIndexState extends State<MineIndex> {
                           ),
                           title: Text(
                             //${SPUtil().get("name")}
-                            "用户名: ${GetStorage().read("userName") ?? ""}",
+                            "${GetStorage().read("userName") ?? "未登录"}",
                             style: const TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                                 fontSize: 20),
                           ),
                           subtitle: Text(
                             // SPUtil().get("name"),
-                            GetStorage().read("roleGroup") ?? "",
+                            GetStorage().read("roleGroup") ?? roleDisplayName,
                             style: const TextStyle(color: Colors.white),
                           ),
                           trailing: const Icon(
@@ -81,8 +146,8 @@ class _MineIndexState extends State<MineIndex> {
                     Align(
                       alignment: const FractionalOffset(0.5, 0),
                       child: Container(
-                        height: 120,
-                        margin: const EdgeInsets.fromLTRB(15, 120, 15, 0),
+                        height: 110,
+                        margin: const EdgeInsets.fromLTRB(15, 140, 15, 0),
                         decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius:
@@ -90,7 +155,7 @@ class _MineIndexState extends State<MineIndex> {
                         child: GridView.count(
                           crossAxisCount: 4,
                           crossAxisSpacing: 10.0,
-                          padding: const EdgeInsets.all(30.0),
+                          padding: const EdgeInsets.all(25.0),
                           children: [
                             GestureDetector(
                               onTap: () {
@@ -99,7 +164,7 @@ class _MineIndexState extends State<MineIndex> {
                                     builder: (BuildContext context) =>
                                         const AlertDialog(
                                           content: Text(
-                                            "QQ交流群:133713780",
+                                            "123",
                                             style:
                                                 TextStyle(color: Colors.cyan),
                                           ),
@@ -108,10 +173,13 @@ class _MineIndexState extends State<MineIndex> {
                               child: SingleChildScrollView(
                                 child: Column(
                                   children: const [
-                                    Icon(
-                                      Icons.supervisor_account_rounded,
-                                      size: 40,
-                                      color: Colors.redAccent,
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 5),
+                                      child: const Icon(
+                                        Icons.supervisor_account_rounded,
+                                        size: 35,
+                                        color: Colors.redAccent,
+                                      ),
                                     ),
                                     Text("用户交流"),
                                   ],
@@ -121,10 +189,13 @@ class _MineIndexState extends State<MineIndex> {
                             SingleChildScrollView(
                               child: Column(
                                 children: const [
-                                  Icon(
-                                    RuoYiIcons.service,
-                                    size: 40,
-                                    color: Colors.blue,
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 5),
+                                    child: const Icon(
+                                      RuoYiIcons.service,
+                                      size: 35,
+                                      color: Colors.blue,
+                                    ),
                                   ),
                                   Text("在线客服"),
                                 ],
@@ -133,31 +204,34 @@ class _MineIndexState extends State<MineIndex> {
                             SingleChildScrollView(
                               child: Column(
                                 children: const [
-                                  Icon(
-                                    RuoYiIcons.community,
-                                    size: 40,
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 5),
+                                    child: const Icon(
+                                      RuoYiIcons.community,
+                                      size: 35,
+                                      color: Colors.blue,
+                                    ),
                                   ),
                                   Text("反馈社区"),
                                 ],
                               ),
                             ),
-                            SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  LikeButton(
-                                    likeBuilder: (bool isLiked) {
-                                      return const Icon(
-                                        Icons.thumb_up_alt,
-                                        size: 40,
-                                        color: Colors.green,
-                                      );
-                                    },
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const Text("点赞我们"),
-                                ],
+                            GestureDetector(
+                              onTap: _showRoleSwitchDialog,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: const [
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 5),
+                                      child: const Icon(
+                                        RuoYiIcons.user,
+                                        size: 35,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                    Text("切换角色"),
+                                  ],
+                                ),
                               ),
                             ),
                             // const LikeButton()
@@ -169,7 +243,7 @@ class _MineIndexState extends State<MineIndex> {
                       alignment: const FractionalOffset(0.78, 0.29),
                       child: Container(
                         height: 280,
-                        margin: const EdgeInsets.fromLTRB(15, 250, 15, 0),
+                        margin: const EdgeInsets.fromLTRB(15, 260, 15, 0),
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
