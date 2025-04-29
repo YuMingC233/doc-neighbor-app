@@ -138,9 +138,9 @@ class _MineIndexState extends State<MineIndex> {
                             onTap: () async {
                               ///TODO 跳转信息详情页
                               var data = await getUserProfile().then((value) {
-                                if (value.data["code"] == 200) {
-                                  Get.toNamed("/home/info",
-                                      arguments: {"args": value.data});
+                                if (value["code"] == 200) {
+                                    Get.toNamed("/home/info",
+                                      arguments: {"args": value["data"]});
                                 }
                               }, onError: (e) {
                                 print(e);
@@ -164,7 +164,7 @@ class _MineIndexState extends State<MineIndex> {
                             ),
                             subtitle: Text(
                               // SPUtil().get("name"),
-                              GetStorage().read("roleGroup") ?? roleDisplayName,
+                              GetStorage().read("rawUserInfo")["user"]["deptName"] ?? roleDisplayName,
                               style: const TextStyle(color: Colors.white),
                             ),
                             trailing: const Icon(

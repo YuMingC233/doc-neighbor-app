@@ -36,7 +36,7 @@ class _InfoIndexState extends State<InfoIndex> {
               child: ListTile(
                 leading: const Icon(Icons.person),
                 title: const Text("昵称"),
-                trailing: Text(details["args"]["data"]["nickName"] ?? ""),
+                trailing: Text(details["args"]["user"]["nickName"] ?? ""),
               ),
             ),
             Container(
@@ -50,7 +50,7 @@ class _InfoIndexState extends State<InfoIndex> {
               child: ListTile(
                 leading: const Icon(Icons.phone),
                 title: const Text("手机号码"),
-                trailing: Text(details["args"]["data"]["phonenumber"] ?? ""),
+                trailing: Text(details["args"]["user"]["phonenumber"] ?? ""),
               ),
             ),
             Container(
@@ -64,7 +64,7 @@ class _InfoIndexState extends State<InfoIndex> {
               child: ListTile(
                 leading: const Icon(Icons.email),
                 title: const Text("邮箱"),
-                trailing: Text(details["args"]["data"]["email"] ?? ""),
+                trailing: Text(details["args"]["user"]["email"] ?? ""),
               ),
             ),
             Container(
@@ -79,7 +79,7 @@ class _InfoIndexState extends State<InfoIndex> {
                 leading: const Icon(Icons.tune),
                 title: const Text("部门"),
                 trailing:
-                    Text(details["args"]["data"]["dept"]["deptName"] ?? ""),
+                    Text(details["args"]["user"]["deptName"] ?? ""),
               ),
             ),
             Container(
@@ -125,7 +125,7 @@ class _InfoIndexState extends State<InfoIndex> {
               child: ListTile(
                 leading: const Icon(Icons.event_available),
                 title: const Text("创建日期"),
-                trailing: Text(details["args"]["data"]["createTime"] ?? ""),
+                trailing: Text(details["args"]["user"]["createTime"] ?? ""),
               ),
             ),
           ],

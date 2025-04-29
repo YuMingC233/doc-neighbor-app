@@ -159,15 +159,19 @@ class DioRequest {
 
             GetStorage().write("token", info["access_token"]);
             SPUtil().setString("token", info["access_token"]);
-            // 打印存储的token
-            print("存储的token: ${GetStorage().read("token")}");
           }
         }
         
         // 处理用户资料响应
+        print("request path: ${response.requestOptions.path}");
         if (response.requestOptions.path == "/system/user/profile") {
           if (response.data["code"] == HttpStatus.SUCCESS) {
-            GetStorage().write("roleGroup", response.data["roleGroup"]);
+            var rawInfo = response.data["data"];
+            var userInfo = rawInfo["user"];
+            GetStorage().write("rawUserInfo", rawInfo);
+            GetStorage().write("userName", userInfo["nickName"]);
+            // 打印存储的信息
+            // print("存储的Name: ${GetStorage().read("userName")}");
           }
         }
         
