@@ -136,7 +136,7 @@ class _MineIndexState extends State<MineIndex> {
                           padding: EdgeInsets.only(top: 80),
                           child: ListTile(
                             onTap: () async {
-                              ///TODO 跳转信息详情页
+                              // TODO 跳转信息详情页
                               var data = await getUserProfile().then((value) {
                                 if (value["code"] == 200) {
                                     Get.toNamed("/home/info",

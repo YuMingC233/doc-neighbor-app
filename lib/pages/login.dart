@@ -260,6 +260,22 @@ class _LoginIndexState extends State<LoginIndex> {
                 const SizedBox(
                   height: 45,
                 ),
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Get.toNamed("/register");
+                    },
+                    child: const Text(
+                      "没有账号？点击注册",
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
                 Container(
                     height: 50,
                     decoration: const BoxDecoration(
@@ -338,6 +354,7 @@ class _LoginIndexState extends State<LoginIndex> {
                           getImg();
                         }
                       },
+                      
                       child: const Text(
                         "登录",
                         style: TextStyle(

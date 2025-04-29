@@ -1,6 +1,7 @@
 import 'package:get/route_manager.dart';
 import 'package:ruoyi_app/pages/common/webview/index.dart';
 import 'package:ruoyi_app/pages/login.dart';
+import 'package:ruoyi_app/pages/register.dart';
 import 'package:ruoyi_app/pages/mine/about/index.dart';
 import 'package:ruoyi_app/pages/mine/help/details.dart';
 import 'package:ruoyi_app/pages/mine/help/index.dart';
@@ -47,6 +48,7 @@ class AppPages {
     GetPage(name: AppRoutes.Login, page: () => const MyHome(), children: [
       GetPage(name: AppRoutes.webView, page: () => const WebViewIndex())
     ]),
+    GetPage(name: AppRoutes.Register, page: () => const RegisterPage()),
     GetPage(name: AppRoutes.user, page: () => const UserIndex()),
     GetPage(name: AppRoutes.role, page: () => const RoleIndex()),
     GetPage(name: AppRoutes.menu, page: () => const MenuIndex()),

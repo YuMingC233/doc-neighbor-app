@@ -15,3 +15,7 @@ var getTenantList = () async {
 var logInByClient = (data) async {
   return await DioRequest().httpRequest("/auth/login", false, "POST", data: data, isEncrypt: true);
 };
+
+var register = (data) async {
+  return await DioRequest().httpRequest("/auth/register", false, "POST", data: data, isEncrypt: true);
+};
