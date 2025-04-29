@@ -43,6 +43,8 @@ dependencies:
   flutter_svg: ^1.1.5
   webview_flutter: ^3.0.0
   flutter_simple_treeview: ^3.0.1
+  encrypt: ^5.0.1  # 用于加密操作
+  crypto: ^3.0.2   # 用于哈希函数
 
 
 dev_dependencies:

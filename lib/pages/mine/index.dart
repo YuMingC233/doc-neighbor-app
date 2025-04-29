@@ -137,15 +137,15 @@ class _MineIndexState extends State<MineIndex> {
                           child: ListTile(
                             onTap: () async {
                               ///TODO 跳转信息详情页
-                              // var data = await getUserProfile().then((value) {
-                              //   if (value.data["code"] == 200) {
-                              //     Get.toNamed("/home/info",
-                              //         arguments: {"args": value.data});
-                              //   }
-                              // }, onError: (e) {
-                              //   print(e);
-                              // });
-                              _showUnderDevelopmentDialog();
+                              var data = await getUserProfile().then((value) {
+                                if (value.data["code"] == 200) {
+                                  Get.toNamed("/home/info",
+                                      arguments: {"args": value.data});
+                                }
+                              }, onError: (e) {
+                                print(e);
+                              });
+                              // _showUnderDevelopmentDialog();
                             },
                             leading: ClipOval(
                               child: Image.asset(
