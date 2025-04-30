@@ -39,37 +39,31 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
-  
+
   // 表单数据
   var username = "";
   var password = "";
   var confirmPassword = "";
   var code = "";
-  var tenantId = "";
-  
+
   // 验证码相关
   var url = "";
   var uuid = "";
   var captchaEnabled = true;
-  
-  // 租户相关
-  var tenantEnabled = true;
-  var tenantList = [];
 
   @override
   void initState() {
     super.initState();
     getCode();
-    initTenantList();
   }
 
   // 获取验证码
   void getCode() async {
     try {
       var resp = await getImage();
-      
+
       Map<String, dynamic> responseData = resp["data"];
-      
+
       setState(() {
         url = responseData["img"].toString();
         uuid = responseData["uuid"].toString();
@@ -79,37 +73,7 @@ class _RegisterFormState extends State<RegisterForm> {
       print(e);
     }
   }
-  
-  // 获取租户列表
-  void initTenantList() async {
-    try {
-      var resp = await getTenantList();
-      
-      if (resp["code"] == 200 && resp["data"] != null) {
-        var data = resp["data"] as Map<String, dynamic>;
-        var tenantEnabledFromServer = data["tenantEnabled"] ?? true;
-        
-        setState(() {
-          tenantEnabled = tenantEnabledFromServer;
-          if (tenantEnabled && data["voList"] != null) {
-            tenantList = data["voList"] as List;
-            if (tenantList.isNotEmpty) {
-              tenantId = tenantList[0]["tenantId"].toString();
-            }
-          } else {
-            tenantList = [];
-          }
-        });
-      }
-    } catch (e) {
-      print("获取租户列表出错: $e");
-      setState(() {
-        tenantEnabled = false;
-        tenantList = [];
-      });
-    }
-  }
-  
+
   // 处理注册请求
   void handleRegister() async {
     if (_formKey.currentState!.validate()) {
@@ -120,27 +84,22 @@ class _RegisterFormState extends State<RegisterForm> {
         );
         return;
       }
-      
+
       setState(() {
         isLoading = true;
       });
-      
+
       try {
         var requestData = {
           "username": username,
           "password": password,
-          "confirmPassword": confirmPassword,
+          "userType": "app_user",
           "code": code,
           "uuid": uuid
         };
-        
-        // 添加租户ID（如果启用）
-        if (tenantEnabled && tenantId.isNotEmpty) {
-          requestData["tenantId"] = tenantId;
-        }
-        
+
         var response = await register(requestData);
-        
+
         if (response["code"] == 200) {
           await showDialog(
             context: context,
@@ -206,53 +165,15 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                     ),
                     const SizedBox(height: 40),
-                    
-                    // 租户选择（如果启用）
-                    if (tenantEnabled) ...[
-                      Container(
-                        height: 50,
-                        padding: EdgeInsets.only(left: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                          border: Border.all(width: 1.0)
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: tenantId,
-                            isExpanded: true,
-                            icon: const Icon(Icons.arrow_drop_down),
-                            hint: const Text("请选择身份"),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                tenantId = newValue!;
-                              });
-                            },
-                            items: tenantList.map<DropdownMenuItem<String>>((item) {
-                              return DropdownMenuItem<String>(
-                                value: item["tenantId"].toString(),
-                                child: Row(
-                                  children: [
-                                    const Icon(Icons.business, size: 20),
-                                    const SizedBox(width: 10),
-                                    Text(item["companyName"].toString()),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                    
+
                     // 用户名输入
                     Container(
                       height: 50,
                       padding: EdgeInsets.only(left: 10),
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                        border: Border.all(width: 1.0)
-                      ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(25.0)),
+                          border: Border.all(width: 1.0)),
                       child: TextFormField(
                         onChanged: (value) {
                           username = value;
@@ -274,15 +195,15 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    
+
                     // 密码输入
                     Container(
                       height: 50,
                       padding: EdgeInsets.only(left: 10),
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                        border: Border.all(width: 1.0)
-                      ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(25.0)),
+                          border: Border.all(width: 1.0)),
                       child: TextFormField(
                         obscureText: true,
                         onChanged: (value) {
@@ -305,15 +226,15 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    
+
                     // 确认密码
                     Container(
                       height: 50,
                       padding: EdgeInsets.only(left: 10),
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                        border: Border.all(width: 1.0)
-                      ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(25.0)),
+                          border: Border.all(width: 1.0)),
                       child: TextFormField(
                         obscureText: true,
                         onChanged: (value) {
@@ -333,18 +254,16 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    
+
                     // 验证码（如果启用）
                     if (captchaEnabled)
                       Container(
                         height: 50,
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(25.0),
-                            bottomLeft: Radius.circular(25.0)
-                          ),
-                          border: Border.all(width: 1.0)
-                        ),
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(25.0),
+                                bottomLeft: Radius.circular(25.0)),
+                            border: Border.all(width: 1.0)),
                         child: Flex(
                           direction: Axis.horizontal,
                           children: [
@@ -374,21 +293,22 @@ class _RegisterFormState extends State<RegisterForm> {
                             Expanded(
                               flex: 5,
                               child: url.isEmpty
-                                ? const Center(child: CircularProgressIndicator())
-                                : InkWell(
-                                    onTap: getCode,
-                                    child: Image.memory(
-                                      const Base64Decoder().convert(url),
-                                      fit: BoxFit.fill,
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
+                                  : InkWell(
+                                      onTap: getCode,
+                                      child: Image.memory(
+                                        const Base64Decoder().convert(url),
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
-                                  ),
                             ),
                           ],
                         ),
                       ),
-                      
+
                     const SizedBox(height: 40),
-                    
+
                     // 注册按钮
                     Container(
                       height: 50,
@@ -397,28 +317,29 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       child: TextButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.blue),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.blue),
                           shape: MaterialStateProperty.all(
-                            const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25.0))
-                            )
-                          ),
+                              const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25.0)))),
                         ),
                         onPressed: isLoading ? null : handleRegister,
                         child: isLoading
-                          ? const CircularProgressIndicator(color: Colors.white)
-                          : const Text(
-                              "注册",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
+                            ? const CircularProgressIndicator(
+                                color: Colors.white)
+                            : const Text(
+                                "注册",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
                       ),
                     ),
-                    
+
                     const SizedBox(height: 20),
-                    
+
                     // 返回登录页链接
                     Center(
                       child: TextButton(

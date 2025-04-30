@@ -209,6 +209,9 @@ class DioRequest {
         if (code == HttpStatus.AUTHENTICATE) {
           if (!_isRelogin) {
             _isRelogin = true;
+            // 使用局部变量跟踪是否已经处理了请求
+            bool hasHandledRequest = false;
+            
             Get.defaultDialog(
               barrierDismissible: false,
               title: "系统提示",
@@ -221,13 +224,23 @@ class DioRequest {
                 SPUtil().clean();
                 GetStorage().erase();
                 Get.offAllNamed("/login");
+                // 标记请求已处理
+                hasHandledRequest = true;
+                handler.next(response);
               },
               onCancel: () {
                 _isRelogin = false;
-                Get.back();
+                // 标记请求已处理
+                hasHandledRequest = true;
+                handler.next(response);
               },
             );
+            
+            // 不立即返回reject，等待对话框操作完成
+            return;
           }
+          
+          // 只有在没有显示对话框的情况下才会执行到这里
           return handler.reject(
             diopkg.DioError(
               requestOptions: response.requestOptions,
