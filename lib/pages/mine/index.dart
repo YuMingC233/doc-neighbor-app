@@ -136,7 +136,11 @@ class _MineIndexState extends State<MineIndex> {
                           padding: const EdgeInsets.only(top: 80),
                           child: ListTile(
                             onTap: () async {
-                              // TODO 跳转信息详情页
+                              GetStorage().read("rawUserInfo") == null
+                                  ? Get.toNamed("/login")
+                                  : GetStorage().read("userName") == null
+                                      ? Get.toNamed("/login")
+                                      : null;
                               var data = await getUserProfile().then((value) {
                                 if (value["code"] == 200) {
                                   Get.toNamed("/home/info",
@@ -164,9 +168,10 @@ class _MineIndexState extends State<MineIndex> {
                             ),
                             subtitle: Text(
                               // SPUtil().get("name"),
-                              GetStorage().read("rawUserInfo")["user"]
-                                      ["deptName"] ??
-                                  roleDisplayName,
+                              (GetStorage().read("rawUserInfo")?["user"]
+                                          ?["deptName"] ??
+                                      roleDisplayName) ??
+                                  "未知角色",
                               style: const TextStyle(color: Colors.white),
                             ),
                             trailing: const Icon(

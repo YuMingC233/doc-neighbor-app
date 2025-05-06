@@ -16,7 +16,7 @@ class MyHome extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            "登录",
+            "", // 临时置空
             style: TextStyle(color: Colors.black),
           ),
           backgroundColor: Colors.transparent, // 背景颜色设置为透明
@@ -414,15 +414,18 @@ class LogInIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.asset(
-        "static/logo.png",
-      ),
-      title: const Text(
-        "若依移动端登录",
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w300,
+    return const ListTile(
+      // leading: Image.asset(
+      //   "static/logo.png",
+      // ),
+      title: Center(
+        child: Text(
+          "医邻救援 - 登录页",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w300,
+          ),
+          textAlign: TextAlign.center,
         ),
       ),
     );

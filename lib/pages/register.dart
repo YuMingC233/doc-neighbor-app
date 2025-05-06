@@ -14,7 +14,7 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "注册",
+          "", // 临时置空
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
@@ -157,10 +157,10 @@ class _RegisterFormState extends State<RegisterForm> {
                     const SizedBox(height: 40),
                     const Center(
                       child: Text(
-                        "DocNeighbor用户注册",
+                        "医邻救援 - 注册页",
                         style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
                     ),
