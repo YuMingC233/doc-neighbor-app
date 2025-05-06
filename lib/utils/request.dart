@@ -1,8 +1,8 @@
 import "package:dio/dio.dart" as diopkg;
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ruoyi_app/utils/sputils.dart';
-import 'package:ruoyi_app/utils/encrypt_utils.dart';
+import 'package:dn_app/utils/sputils.dart';
+import 'package:dn_app/utils/encrypt_utils.dart';
 import 'package:encrypt/encrypt.dart' as encrypt_lib;
 import 'dart:convert';
 
@@ -25,7 +25,7 @@ class HttpStatus {
 /// dio网络请求配置表 自定义
 class DioConfig {
   //static const baseURL = "https://mouor.cn:8081"; 域名
-  static const baseURL = "http://192.168.2.76:8080"; //域名
+  static const baseURL = "http://192.168.2.223:8080"; //域名
   static const timeout = 10000; //超时时间
 }
 

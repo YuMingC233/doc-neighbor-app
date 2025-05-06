@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ruoyi_app/api/system/user.dart';
+import 'package:dn_app/api/system/user.dart';
 
 class UserEdit extends StatefulWidget {
   const UserEdit({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:ruoyi_app/pages/nearby_doctor/index.dart';
-import 'package:ruoyi_app/pages/mine/index.dart'; // 导入UserRoleManager
+import 'package:dn_app/pages/nearby_doctor/index.dart';
+import 'package:dn_app/pages/mine/index.dart'; // 导入UserRoleManager
 
 class HomeIndex extends StatefulWidget {
   const HomeIndex({Key? key}) : super(key: key);

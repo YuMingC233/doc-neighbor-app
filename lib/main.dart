@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ruoyi_app/api/login.dart';
-import 'package:ruoyi_app/routes/app_pages.dart';
+import 'package:dn_app/api/login.dart';
+import 'package:dn_app/routes/app_pages.dart';
 
 void main() {
   // ignore: invalid_use_of_visible_for_testing_member

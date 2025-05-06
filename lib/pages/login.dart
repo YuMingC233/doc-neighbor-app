@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
-import 'package:ruoyi_app/icon/ruoyi_icon.dart';
+import 'package:dn_app/icon/ruoyi_icon.dart';
 
 import '../api/login.dart';
 

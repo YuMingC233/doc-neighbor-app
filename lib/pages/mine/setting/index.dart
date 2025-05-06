@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ruoyi_app/icon/ruoyi_icon.dart';
-import 'package:ruoyi_app/utils/sputils.dart';
+import 'package:dn_app/icon/ruoyi_icon.dart';
+import 'package:dn_app/utils/sputils.dart';
 
 import '../../login.dart';
 
