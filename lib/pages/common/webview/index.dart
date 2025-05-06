@@ -20,11 +20,11 @@ class _WebViewIndexState extends State<WebViewIndex> {
           style: const TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent, // 背景颜色设置为透明
-        shadowColor: Colors.transparent,
       ),
-      body: WebView(
-        javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: arg["url"],
+      body: WebViewWidget(
+        controller: WebViewController()
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..loadRequest(Uri.parse(arg["url"])),
       ),
     );
   }

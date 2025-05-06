@@ -1,5 +1,5 @@
-name: ruoyi_app
-description: A new Flutter project.
+name: dn_app
+description: "医生邻居Flutter 全平台开发app"
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -41,7 +41,7 @@ dependencies:
   like_button: ^2.0.4
   get_storage: ^2.0.3
   flutter_svg: ^1.1.5
-  webview_flutter: ^3.0.0
+  webview_flutter: ^4.0.0
   flutter_simple_treeview: ^3.0.1
   encrypt: ^5.0.1  # 用于加密操作
   crypto: ^3.0.2   # 用于哈希函数
