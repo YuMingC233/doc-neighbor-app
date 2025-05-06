@@ -13,7 +13,7 @@ class _ConfigIndexState extends State<ConfigIndex> {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        child: Text("DeptIndex"),
+        child: const Text("DeptIndex"),
       ),
     );
   }

@@ -13,7 +13,7 @@ class _MenuIndexState extends State<MenuIndex> {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        child: Text("MenuIndex"),
+        child: const Text("MenuIndex"),
       ),
     );
   }

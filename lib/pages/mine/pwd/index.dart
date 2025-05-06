@@ -28,10 +28,10 @@ class _PWDIndexState extends State<PWDIndex> {
       ),
       body: ListView(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
-          Container(
+          SizedBox(
             height: 40,
             child: Flex(
               direction: Axis.horizontal,
@@ -39,19 +39,20 @@ class _PWDIndexState extends State<PWDIndex> {
                 Expanded(
                     flex: 3,
                     child: Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Text(
                         "旧密码",
                       ),
                     )),
                 Expanded(
                     flex: 7,
                     child: Container(
-                      margin: EdgeInsets.only(right: 20),
-                      padding: EdgeInsets.only(left: 5),
+                      margin: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                           border: Border.all(width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5))),
                       child: Container(
                         child: TextField(
                           onChanged: (value) {
@@ -71,10 +72,10 @@ class _PWDIndexState extends State<PWDIndex> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Container(
+          SizedBox(
             height: 40,
             child: Flex(
               direction: Axis.horizontal,
@@ -82,19 +83,20 @@ class _PWDIndexState extends State<PWDIndex> {
                 Expanded(
                     flex: 3,
                     child: Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Text(
                         "新密码",
                       ),
                     )),
                 Expanded(
                     flex: 7,
                     child: Container(
-                      margin: EdgeInsets.only(right: 20),
-                      padding: EdgeInsets.only(left: 5),
+                      margin: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                           border: Border.all(width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5))),
                       child: Container(
                         child: TextField(
                           onChanged: (value) {
@@ -114,10 +116,10 @@ class _PWDIndexState extends State<PWDIndex> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Container(
+          SizedBox(
             height: 40,
             child: Flex(
               direction: Axis.horizontal,
@@ -125,19 +127,20 @@ class _PWDIndexState extends State<PWDIndex> {
                 Expanded(
                     flex: 3,
                     child: Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Text(
                         "新密码",
                       ),
                     )),
                 Expanded(
                     flex: 7,
                     child: Container(
-                      margin: EdgeInsets.only(right: 20),
-                      padding: EdgeInsets.only(left: 5),
+                      margin: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                           border: Border.all(width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5))),
                       child: Container(
                         child: TextField(
                           onChanged: (value) {
@@ -157,19 +160,17 @@ class _PWDIndexState extends State<PWDIndex> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 35,
           ),
           Container(
               height: 45,
-              padding: EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: TextButton(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                    shape: MaterialStateProperty.all(
-                        const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5.0))))),
+                    backgroundColor: WidgetStateProperty.all(Colors.blue),
+                    shape: WidgetStateProperty.all(const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0))))),
                 onPressed: () async {
                   if (oldPassword == "") {
                     Get.snackbar("系统提示", "原始密码不能为空");

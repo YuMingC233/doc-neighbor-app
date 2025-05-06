@@ -15,16 +15,16 @@ class _HomeIndexState extends State<HomeIndex> {
   // 模拟状态变量
   bool emergencyActive = false;
   bool acceptedEmergency = false;
-  
+
   @override
   void initState() {
     super.initState();
     // 确保角色管理器已初始化
     UserRoleManager().initUserRole();
-    
+
     // 模拟一段时间后收到紧急请求
-    Future.delayed(Duration(seconds: 5), () {
-      if(mounted) {
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
         setState(() {
           emergencyActive = true;
         });
@@ -59,12 +59,12 @@ class _HomeIndexState extends State<HomeIndex> {
                   Text(
                     "医邻救援",
                     style: TextStyle(
-                      fontSize: 24, 
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.red[600],
                     ),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Text(
@@ -75,11 +75,11 @@ class _HomeIndexState extends State<HomeIndex> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   InkWell(
                     onTap: () {
                       // 使用Get路由，避免Navigator堆栈问题
-                      Get.to(() => NearbyDoctorPage());
+                      Get.to(() => const NearbyDoctorPage());
                     },
                     child: Container(
                       width: 160,
@@ -87,7 +87,7 @@ class _HomeIndexState extends State<HomeIndex> {
                       decoration: BoxDecoration(
                         color: Colors.red[600],
                         shape: BoxShape.circle,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black26,
                             blurRadius: 10,
@@ -95,7 +95,7 @@ class _HomeIndexState extends State<HomeIndex> {
                           ),
                         ],
                       ),
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
@@ -127,16 +127,16 @@ class _HomeIndexState extends State<HomeIndex> {
   // 医生视图
   Widget _buildDoctorView() {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
             // 顶部蓝色标题栏
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               color: Colors.blue[600],
               width: double.infinity,
-              child: SafeArea(
+              child: const SafeArea(
                 bottom: false,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,14 +161,14 @@ class _HomeIndexState extends State<HomeIndex> {
                 ),
               ),
             ),
-            
+
             // 主体内容区域
             Expanded(
-              child: emergencyActive && !acceptedEmergency 
-                ? _buildEmergencyRequest()
-                : acceptedEmergency 
-                  ? _buildAcceptedRequest() 
-                  : _buildWaitingState(),
+              child: emergencyActive && !acceptedEmergency
+                  ? _buildEmergencyRequest()
+                  : acceptedEmergency
+                      ? _buildAcceptedRequest()
+                      : _buildWaitingState(),
             ),
           ],
         ),
@@ -181,7 +181,7 @@ class _HomeIndexState extends State<HomeIndex> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -189,11 +189,11 @@ class _HomeIndexState extends State<HomeIndex> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.red[50],
                 borderRadius: BorderRadius.circular(8),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black12,
                     blurRadius: 5,
@@ -212,9 +212,9 @@ class _HomeIndexState extends State<HomeIndex> {
                       color: Colors.red[600],
                     ),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                       style: TextStyle(color: Colors.black87, fontSize: 14),
                       children: [
                         TextSpan(
@@ -225,9 +225,9 @@ class _HomeIndexState extends State<HomeIndex> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                       style: TextStyle(color: Colors.black87, fontSize: 14),
                       children: [
                         TextSpan(
@@ -238,9 +238,9 @@ class _HomeIndexState extends State<HomeIndex> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                       style: TextStyle(color: Colors.black87, fontSize: 14),
                       children: [
                         TextSpan(
@@ -251,17 +251,17 @@ class _HomeIndexState extends State<HomeIndex> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       onPressed: acceptRequest,
-                      icon: Icon(Icons.check),
-                      label: Text("接受请求"),
+                      icon: const Icon(Icons.check),
+                      label: const Text("接受请求"),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red[600],
                         foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -285,7 +285,7 @@ class _HomeIndexState extends State<HomeIndex> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.green[50],
               borderRadius: BorderRadius.circular(8),
@@ -301,8 +301,8 @@ class _HomeIndexState extends State<HomeIndex> {
                     color: Colors.green[600],
                   ),
                 ),
-                SizedBox(height: 8),
-                Text(
+                const SizedBox(height: 8),
+                const Text(
                   "请尽快前往患者位置",
                   style: TextStyle(
                     fontSize: 14,
@@ -312,7 +312,7 @@ class _HomeIndexState extends State<HomeIndex> {
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Container(
             height: 200,
             decoration: BoxDecoration(
@@ -328,7 +328,7 @@ class _HomeIndexState extends State<HomeIndex> {
                     size: 40,
                     color: Colors.grey[400],
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     "导航至患者位置",
                     style: TextStyle(
@@ -340,17 +340,17 @@ class _HomeIndexState extends State<HomeIndex> {
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           ElevatedButton.icon(
             onPressed: () {
               // 联系患者功能
             },
-            icon: Icon(Icons.phone),
-            label: Text("联系患者"),
+            icon: const Icon(Icons.phone),
+            label: const Text("联系患者"),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue[500],
               foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -374,7 +374,7 @@ class _HomeIndexState extends State<HomeIndex> {
               size: 60,
               color: Colors.blue[500],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               "等待紧急救助请求",
               style: TextStyle(
@@ -383,7 +383,7 @@ class _HomeIndexState extends State<HomeIndex> {
                 color: Colors.grey[700],
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               "您将收到附近5公里范围内的紧急医疗救助请求",
               textAlign: TextAlign.center,
@@ -397,5 +397,4 @@ class _HomeIndexState extends State<HomeIndex> {
       ),
     );
   }
-  
 }

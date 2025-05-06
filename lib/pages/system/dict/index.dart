@@ -13,7 +13,7 @@ class _DictIndexState extends State<DictIndex> {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        child: Text("DeptIndex"),
+        child: const Text("DeptIndex"),
       ),
     );
   }

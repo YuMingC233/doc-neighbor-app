@@ -13,7 +13,7 @@ class _DeptIndexState extends State<DeptIndex> {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        child: Text("DeptIndex"),
+        child: const Text("DeptIndex"),
       ),
     );
   }

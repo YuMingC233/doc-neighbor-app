@@ -37,7 +37,7 @@ class Login extends StatelessWidget {
 
 // ignore: must_be_immutable
 class LoginIndex extends StatefulWidget {
-  LoginIndex({Key? key}) : super(key: key);
+  const LoginIndex({Key? key}) : super(key: key);
 
   @override
   // ignore: no_logic_in_create_state
@@ -73,10 +73,10 @@ class _LoginIndexState extends State<LoginIndex> {
   void getImg() async {
     try {
       var resp = await getImage();
-      
+
       Map<String, dynamic> responseData = resp["data"];
-      print("responseData.toString()="+responseData.toString());
-      
+      print("responseData.toString()=$responseData");
+
       setState(() {
         url = responseData["img"].toString();
         uuid = responseData["uuid"].toString();
@@ -85,16 +85,16 @@ class _LoginIndexState extends State<LoginIndex> {
       print(e);
     }
   }
-  
+
   void getTenants() async {
     try {
       var resp = await getTenantList();
-      
+
       if (resp["code"] == 200 && resp["data"] != null) {
         var data = resp["data"] as Map<String, dynamic>;
         // 检查是否启用租户功能
         var tenantEnabledFromServer = data["tenantEnabled"] ?? false;
-        
+
         setState(() {
           tenantEnabled = tenantEnabledFromServer;
           // 只有在启用租户的情况下才处理租户列表
@@ -144,9 +144,10 @@ class _LoginIndexState extends State<LoginIndex> {
                 ),
                 Container(
                   height: 50,
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(25.0)),
                       border: Border.all(width: 1.0)),
                   child: TextField(
                     onChanged: (value) {
@@ -166,9 +167,10 @@ class _LoginIndexState extends State<LoginIndex> {
                 if (tenantEnabled) ...[
                   Container(
                     height: 50,
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25.0)),
                         border: Border.all(width: 1.0)),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
@@ -202,9 +204,10 @@ class _LoginIndexState extends State<LoginIndex> {
                 ],
                 Container(
                   height: 50,
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(25.0)),
                       border: Border.all(width: 1.0)),
                   child: TextField(
                     obscureText: true,
@@ -223,7 +226,7 @@ class _LoginIndexState extends State<LoginIndex> {
                 ),
                 Container(
                     height: 50,
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(25.0),
@@ -283,11 +286,11 @@ class _LoginIndexState extends State<LoginIndex> {
                     ),
                     child: TextButton(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.blue),
-                          shape: MaterialStateProperty.all(
+                          backgroundColor: WidgetStateProperty.all(Colors.blue),
+                          shape: WidgetStateProperty.all(
                               const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(25.0))))),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(25.0))))),
                       onPressed: () async {
                         if (username.isEmpty) {
                           showDialog(
@@ -348,13 +351,13 @@ class _LoginIndexState extends State<LoginIndex> {
                               builder: (BuildContext context) => AlertDialog(
                                     content: Text(
                                       data["msg"],
-                                      style: const TextStyle(color: Colors.cyan),
+                                      style:
+                                          const TextStyle(color: Colors.cyan),
                                     ),
                                   ));
                           getImg();
                         }
                       },
-                      
                       child: const Text(
                         "登录",
                         style: TextStyle(
@@ -384,8 +387,8 @@ class _LoginIndexState extends State<LoginIndex> {
                           ),
                           TextSpan(
                             text: "《用户隐私》",
-                            style:
-                                TextStyle(color: Theme.of(context).colorScheme.secondary),
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Get.toNamed("/login/webView", arguments: {

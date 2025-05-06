@@ -13,7 +13,7 @@ class _LogIndexState extends State<LogIndex> {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        child: Text("DeptIndex"),
+        child: const Text("DeptIndex"),
       ),
     );
   }

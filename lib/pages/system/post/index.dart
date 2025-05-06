@@ -13,7 +13,7 @@ class _PostIndexState extends State<PostIndex> {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        child: Text("DeptIndex"),
+        child: const Text("DeptIndex"),
       ),
     );
   }

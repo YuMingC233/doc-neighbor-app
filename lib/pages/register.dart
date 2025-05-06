@@ -30,7 +30,7 @@ class RegisterPage extends StatelessWidget {
 }
 
 class RegisterForm extends StatefulWidget {
-  RegisterForm({Key? key}) : super(key: key);
+  const RegisterForm({Key? key}) : super(key: key);
 
   @override
   _RegisterFormState createState() => _RegisterFormState();
@@ -155,8 +155,8 @@ class _RegisterFormState extends State<RegisterForm> {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   children: [
                     const SizedBox(height: 40),
-                    Center(
-                      child: const Text(
+                    const Center(
+                      child: Text(
                         "DocNeighbor用户注册",
                         style: TextStyle(
                           fontSize: 24,
@@ -169,7 +169,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     // 用户名输入
                     Container(
                       height: 50,
-                      padding: EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10),
                       decoration: BoxDecoration(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(25.0)),
@@ -199,7 +199,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     // 密码输入
                     Container(
                       height: 50,
-                      padding: EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10),
                       decoration: BoxDecoration(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(25.0)),
@@ -230,7 +230,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     // 确认密码
                     Container(
                       height: 50,
-                      padding: EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10),
                       decoration: BoxDecoration(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(25.0)),
@@ -270,7 +270,7 @@ class _RegisterFormState extends State<RegisterForm> {
                             Expanded(
                               flex: 7,
                               child: Padding(
-                                padding: EdgeInsets.only(left: 10),
+                                padding: const EdgeInsets.only(left: 10),
                                 child: TextFormField(
                                   onChanged: (value) {
                                     code = value;
@@ -317,9 +317,8 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       child: TextButton(
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.blue),
-                          shape: MaterialStateProperty.all(
+                          backgroundColor: WidgetStateProperty.all(Colors.blue),
+                          shape: WidgetStateProperty.all(
                               const RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(25.0)))),

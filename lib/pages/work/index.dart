@@ -18,7 +18,7 @@ class _WorkIndexState extends State<WorkIndex> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _getListData(index) {
+    List<Widget> getListData(index) {
       listData = GetStorage().read("route")[index]["children"];
 
       var tempList = listData.map((value) {
@@ -44,7 +44,7 @@ class _WorkIndexState extends State<WorkIndex> {
             ),
           );
         } else {
-          return Divider();
+          return const Divider();
         }
       });
       var list = tempList.toList();
@@ -55,7 +55,7 @@ class _WorkIndexState extends State<WorkIndex> {
       return list;
     }
 
-    _decoration(int index) {
+    decoration(int index) {
       if (index == clickIndex) {
         return const BoxDecoration(
             color: Colors.white,
@@ -78,8 +78,7 @@ class _WorkIndexState extends State<WorkIndex> {
       }
     }
 
-    ;
-    List<Widget> _getListData1() {
+    List<Widget> getListData1() {
       listTab = GetStorage().read("route"); // 这里在后台拿不到数据（null），所以这里才会报错
       var tempList = listTab.asMap().keys.map((index) {
         if (listTab[index]["hidden"] == false) {
@@ -98,7 +97,7 @@ class _WorkIndexState extends State<WorkIndex> {
               },
               child: Container(
                 width: 98,
-                decoration: _decoration(index),
+                decoration: decoration(index),
                 child: Center(
                   child: RichText(
                     text: TextSpan(children: [
@@ -111,7 +110,7 @@ class _WorkIndexState extends State<WorkIndex> {
                       WidgetSpan(
                           child: Text(
                         listTab[index]["meta"]["title"],
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
                       ))
                     ]),
@@ -119,7 +118,7 @@ class _WorkIndexState extends State<WorkIndex> {
                 ),
               ));
         } else {
-          return Divider();
+          return const Divider();
         }
       });
       var list = tempList.toList();
@@ -165,21 +164,21 @@ class _WorkIndexState extends State<WorkIndex> {
               ),
               Container(
                 height: 40,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: ListView(
                   scrollDirection: Axis.horizontal,
-                  children: _getListData1(),
+                  children: getListData1(),
                 ),
               ),
               Container(
                 height: 500,
-                margin: EdgeInsets.only(top: 30),
+                margin: const EdgeInsets.only(top: 30),
                 child: GridView.count(
                   crossAxisCount: 4,
                   crossAxisSpacing: 10.0,
                   //childAspectRatio: 10.0,
                   padding: const EdgeInsets.all(10),
-                  children: _getListData(clickIndex),
+                  children: getListData(clickIndex),
                 ),
               ),
             ],

@@ -54,23 +54,25 @@ class DioRequest {
       onRequest: (options, handler) {
         // 设置响应类型
         options.responseType = diopkg.ResponseType.json;
-        
+
         // 是否需要token
         bool isToken = options.headers['isToken'] != false;
         // 是否需要防止数据重复提交
         bool isRepeatSubmit = options.headers['repeatSubmit'] != false;
         // 是否需要加密
         bool isEncrypt = options.headers['isEncrypt'] == 'true';
-        
+
         // 添加token到请求头
         if (hasToken() && isToken) {
-          options.headers['Authorization'] = 'Bearer ${GetStorage().read("token")}';
+          options.headers['Authorization'] =
+              'Bearer ${GetStorage().read("token")}';
         }
-        
+
         // 处理POST和PUT请求参数，添加默认的clientId和grantType
         if (options.method == 'POST' || options.method == 'PUT') {
           if (options.data is Map) {
-            final Map<String, dynamic> dataMap = Map<String, dynamic>.from(options.data);
+            final Map<String, dynamic> dataMap =
+                Map<String, dynamic>.from(options.data);
             // 添加 clientId 参数，优先使用请求中的值，否则使用默认值
             dataMap['clientId'] = dataMap['clientId'] ?? clientId;
             // 添加 grantType 参数，优先使用请求中的值，否则使用默认值
@@ -78,14 +80,15 @@ class DioRequest {
             options.data = dataMap;
           }
         }
-        
+
         // 处理GET请求参数
         if (options.method == 'GET' && options.queryParameters.isNotEmpty) {
           // 在Dio中，queryParameters会自动处理，不需要像Axios那样手动处理
         }
-        
+
         // 防止重复提交
-        if (isRepeatSubmit && (options.method == 'POST' || options.method == 'PUT')) {
+        if (isRepeatSubmit &&
+            (options.method == 'POST' || options.method == 'PUT')) {
           if (EncryptUtils.checkRepeatSubmit(options.path, options.data)) {
             return handler.reject(
               diopkg.DioError(
@@ -95,18 +98,19 @@ class DioRequest {
             );
           }
         }
-        
+
         // 加密请求数据
-        if (EncryptUtils.enableEncrypt && isEncrypt && 
+        if (EncryptUtils.enableEncrypt &&
+            isEncrypt &&
             (options.method == 'POST' || options.method == 'PUT')) {
           // 生成AES密钥
           final aesKey = EncryptUtils.generateAesKey();
           // 使用RSA加密AES密钥
           // 将Key对象转为字符串
           final aesKeyString = aesKey.base64;
-          options.headers[EncryptUtils.encryptHeader] = 
+          options.headers[EncryptUtils.encryptHeader] =
               EncryptUtils.encrypt(aesKeyString);
-          
+
           // 使用AES加密数据
           if (options.data != null) {
             final jsonData = options.data is Map || options.data is List
@@ -115,20 +119,19 @@ class DioRequest {
             options.data = EncryptUtils.encryptWithAes(jsonData, aesKey);
           }
         }
-        
+
         // 处理FormData
         // if (options.data is FormData) {
         //   options.headers.remove('Content-Type');
         // }
-        
+
         print("================== 请求数据 ==========================");
         print("url = ${options.uri.toString()}");
         print("headers = ${options.headers}");
         print("params = ${options.data}");
-        
+
         return handler.next(options);
       },
-      
       onResponse: (response, handler) {
         // 尝试解密返回的数据
         if (EncryptUtils.enableEncrypt) {
@@ -150,18 +153,18 @@ class DioRequest {
             }
           }
         }
-        
+
         // 处理登录响应
         if (response.requestOptions.path == "/auth/login") {
           if (response.data["code"] == HttpStatus.SUCCESS) {
             var info = response.data["data"];
-            print("respone info: ${info}");
+            print("respone info: $info");
 
             GetStorage().write("token", info["access_token"]);
             SPUtil().setString("token", info["access_token"]);
           }
         }
-        
+
         // 处理用户资料响应
         print("request path: ${response.requestOptions.path}");
         if (response.requestOptions.path == "/system/user/profile") {
@@ -174,7 +177,7 @@ class DioRequest {
             // print("存储的Name: ${GetStorage().read("userName")}");
           }
         }
-        
+
         // 处理路由数据响应
         if (response.requestOptions.path == "/getRouters") {
           if (response.data["code"] == HttpStatus.SUCCESS) {
@@ -193,10 +196,10 @@ class DioRequest {
                     "http://vue.ruoyi.vip/static/img/profile.473f5971.jpg");
           }
         }
-        
+
         // 状态码处理
         final code = response.data["code"] ?? HttpStatus.SUCCESS;
-        
+
         // 处理权限错误
         if (code == HttpStatus.FORBIDDEN) {
           SPUtil().clean();
@@ -204,14 +207,14 @@ class DioRequest {
           Get.toNamed("/login");
           return handler.next(response);
         }
-        
+
         // 处理认证错误
         if (code == HttpStatus.AUTHENTICATE) {
           if (!_isRelogin) {
             _isRelogin = true;
             // 使用局部变量跟踪是否已经处理了请求
             bool hasHandledRequest = false;
-            
+
             Get.defaultDialog(
               barrierDismissible: false,
               title: "系统提示",
@@ -235,11 +238,11 @@ class DioRequest {
                 handler.next(response);
               },
             );
-            
+
             // 不立即返回reject，等待对话框操作完成
             return;
           }
-          
+
           // 只有在没有显示对话框的情况下才会执行到这里
           return handler.reject(
             diopkg.DioError(
@@ -275,18 +278,17 @@ class DioRequest {
             ),
           );
         }
-        
+
         print("================== 响应数据 ==========================");
         print("code = ${response.statusCode}");
         print("data = ${response.data}");
-        
+
         return handler.next(response);
       },
-      
       onError: (diopkg.DioError e, handler) {
         String message = e.message;
-        if (e.type == diopkg.DioErrorType.connectTimeout || 
-            e.type == diopkg.DioErrorType.receiveTimeout || 
+        if (e.type == diopkg.DioErrorType.connectTimeout ||
+            e.type == diopkg.DioErrorType.receiveTimeout ||
             e.type == diopkg.DioErrorType.sendTimeout) {
           message = '系统接口请求超时';
         } else if (e.type == diopkg.DioErrorType.response) {
@@ -298,13 +300,13 @@ class DioRequest {
             message = '未知网络异常';
           }
         }
-        
+
         Get.snackbar("网络错误", message, snackPosition: SnackPosition.TOP);
-        
+
         print("================== 错误响应数据 ======================");
         print("type = ${e.type}");
-        print("message = ${message}");
-        
+        print("message = $message");
+
         return handler.next(e);
       },
     ));
@@ -313,7 +315,7 @@ class DioRequest {
   static DioRequest getInstance() {
     return _instance ??= DioRequest();
   }
-  
+
   /// 检查是否有token
   bool hasToken() {
     if (!GetStorage().hasData("token")) {
@@ -342,7 +344,7 @@ class DioRequest {
     bool isRepeatSubmit = true,
   }) async {
     diopkg.Options requestOptions;
-    
+
     // 构建请求头
     Map<String, dynamic> headers = {
       "content-type": "application/json; charset=utf-8",
@@ -350,20 +352,20 @@ class DioRequest {
       "repeatSubmit": isRepeatSubmit,
       "isEncrypt": isEncrypt ? "true" : "false",
     };
-    
+
     // 添加token
     if (isToken && hasToken()) {
       headers["Authorization"] = "Bearer ${GetStorage().read("token")}";
     }
     // 添加客户端ID
     headers["clientId"] = clientId;
-    
+
     // 创建options
     requestOptions = diopkg.Options(
       headers: headers,
       method: method,
     );
-    
+
     // 合并可能的其他选项
     if (options != null) {
       requestOptions = requestOptions.copyWith(
@@ -381,7 +383,7 @@ class DioRequest {
         listFormat: options.listFormat,
       );
     }
-    
+
     // 执行请求
     try {
       diopkg.Response response;

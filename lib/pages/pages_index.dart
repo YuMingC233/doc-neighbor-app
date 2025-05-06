@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'home/index.dart';
-import 'package:ruoyi_app/pages/work/index.dart';
 import 'mine/index.dart';
 
 class PageIndex extends StatefulWidget {

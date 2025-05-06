@@ -13,14 +13,14 @@ class _SwaggerIndexState extends State<SwaggerIndex> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "系统接口",
-          style: const TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent, // 背景颜色设置为透明
         shadowColor: Colors.transparent,
       ),
-      body: WebView(
+      body: const WebView(
         javascriptMode: JavascriptMode.unrestricted,
         initialUrl: "https://mouor.cn:8081/swagger-ui/index.html",
       ),
