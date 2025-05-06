@@ -15,16 +15,16 @@ class _HomeIndexState extends State<HomeIndex> {
   // 模拟状态变量
   bool emergencyActive = false;
   bool acceptedEmergency = false;
-  
+
   @override
   void initState() {
     super.initState();
     // 确保角色管理器已初始化
     UserRoleManager().initUserRole();
-    
+
     // 模拟一段时间后收到紧急请求
     Future.delayed(Duration(seconds: 5), () {
-      if(mounted) {
+      if (mounted) {
         setState(() {
           emergencyActive = true;
         });
@@ -59,7 +59,7 @@ class _HomeIndexState extends State<HomeIndex> {
                   Text(
                     "医邻救援",
                     style: TextStyle(
-                      fontSize: 24, 
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.red[600],
                     ),
@@ -161,14 +161,14 @@ class _HomeIndexState extends State<HomeIndex> {
                 ),
               ),
             ),
-            
+
             // 主体内容区域
             Expanded(
-              child: emergencyActive && !acceptedEmergency 
-                ? _buildEmergencyRequest()
-                : acceptedEmergency 
-                  ? _buildAcceptedRequest() 
-                  : _buildWaitingState(),
+              child: emergencyActive && !acceptedEmergency
+                  ? _buildEmergencyRequest()
+                  : acceptedEmergency
+                      ? _buildAcceptedRequest()
+                      : _buildWaitingState(),
             ),
           ],
         ),
@@ -221,7 +221,7 @@ class _HomeIndexState extends State<HomeIndex> {
                           text: "患者位置: ",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        TextSpan(text: "武汉市洪山区珞瑜路"),
+                        TextSpan(text: "长沙市雨花区人民中路"),
                       ],
                     ),
                   ),
@@ -397,5 +397,4 @@ class _HomeIndexState extends State<HomeIndex> {
       ),
     );
   }
-  
 }

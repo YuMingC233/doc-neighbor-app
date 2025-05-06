@@ -17,9 +17,8 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
   // 根据是否存在用户token返回路由地址
-  String defaultTokenPage = GetStorage().hasData("token")
-            ? AppPages.INITIAL
-            : AppPages.INITIALLOGIN;
+  String defaultTokenPage =
+      GetStorage().hasData("token") ? AppPages.INITIAL : AppPages.INITIALLOGIN;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +27,7 @@ class MyApp extends StatelessWidget {
         "initialRoute",
         // 如果有 token 则跳转到首页，否则跳转到登录页
         // default_token_page
-        "/home"
-        );
+        "/home");
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fade,
@@ -45,14 +43,14 @@ class MyApp extends StatelessWidget {
       initialRoute: GetStorage().read("initialRoute"),
       getPages: AppPages.routes,
       routingCallback: (routing) {
-        if (routing?.current != "/login" &&
-            routing?.current != "/login/webView") {
-          getInfo();
-          getUserProfile();
-        }
-        if (routing?.current == "/home") {
-          getRouters();
-        }
+        // if (routing?.current != "/login" &&
+        //     routing?.current != "/login/webView") {
+        //   getInfo();
+        //   getUserProfile();
+        // }
+        // if (routing?.current == "/home") {
+        //   getRouters();
+        // }
       },
     );
   }
