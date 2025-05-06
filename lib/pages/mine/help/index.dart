@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ruoyi_app/icon/ruoyi_icon.dart';
+import 'package:dn_app/icon/ruoyi_icon.dart';
 
 class Help extends StatefulWidget {
   const Help({Key? key}) : super(key: key);
@@ -23,14 +23,14 @@ class _HelpState extends State<Help> {
       ),
       body: ListView(
         children: [
-          ListTile(
+          const ListTile(
             minLeadingWidth: -10,
             leading: Icon(
               RuoYiIcons.github,
               size: 25,
               color: Colors.black,
             ),
-            title: const Text(
+            title: Text(
               "Ruoyi问题",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),

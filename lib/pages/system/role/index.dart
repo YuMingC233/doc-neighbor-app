@@ -14,7 +14,7 @@ class _RoleIndexState extends State<RoleIndex> {
         child: Scaffold(
       appBar: AppBar(),
       body: Container(
-        child: Text("RoleIndex"),
+        child: const Text("RoleIndex"),
       ),
     ));
   }

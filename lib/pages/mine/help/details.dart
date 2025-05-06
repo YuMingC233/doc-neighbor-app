@@ -11,13 +11,13 @@ class HelpDetails extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           arg["title"],
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent, // 背景颜色设置为透明
         shadowColor: Colors.transparent,
       ),
       body: Container(
-        margin: EdgeInsets.only(right: 15, left: 15, top: 15),
+        margin: const EdgeInsets.only(right: 15, left: 15, top: 15),
         child: Container(
           child: ListView(
             children: [

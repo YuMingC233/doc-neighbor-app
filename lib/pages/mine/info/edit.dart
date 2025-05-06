@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ruoyi_app/api/system/user.dart';
+import 'package:dn_app/api/system/user.dart';
 
 class UserEdit extends StatefulWidget {
   const UserEdit({Key? key}) : super(key: key);
@@ -36,10 +36,10 @@ class _UserEditState extends State<UserEdit> {
       ),
       body: ListView(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          Container(
+          SizedBox(
             height: 40,
             child: Flex(
               direction: Axis.horizontal,
@@ -47,20 +47,20 @@ class _UserEditState extends State<UserEdit> {
                 Expanded(
                     flex: 3,
                     child: Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Text(
                         "用户昵称",
-
                       ),
                     )),
                 Expanded(
                     flex: 7,
                     child: Container(
-                      margin: EdgeInsets.only(right: 20),
-                      padding: EdgeInsets.only(left: 5),
+                      margin: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                           border: Border.all(width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5))),
                       child: Container(
                         child: TextField(
                           onChanged: (value) {
@@ -73,7 +73,7 @@ class _UserEditState extends State<UserEdit> {
                                     TextPosition(
                                         affinity: TextAffinity.downstream,
                                         offset: details["arg"]["data"]
-                                        ["nickName"]
+                                                ["nickName"]
                                             .length))),
                           ),
                           decoration: const InputDecoration(
@@ -87,10 +87,10 @@ class _UserEditState extends State<UserEdit> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Container(
+          SizedBox(
             height: 40,
             child: Flex(
               direction: Axis.horizontal,
@@ -98,20 +98,20 @@ class _UserEditState extends State<UserEdit> {
                 Expanded(
                     flex: 3,
                     child: Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Text(
                         "手机号码",
-
                       ),
                     )),
                 Expanded(
                     flex: 7,
                     child: Container(
-                      margin: EdgeInsets.only(right: 20),
-                      padding: EdgeInsets.only(left: 5),
+                      margin: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                           border: Border.all(width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5))),
                       child: Container(
                         child: TextField(
                           onChanged: (value) {
@@ -124,7 +124,7 @@ class _UserEditState extends State<UserEdit> {
                                     TextPosition(
                                         affinity: TextAffinity.downstream,
                                         offset: details["arg"]["data"]
-                                        ["phonenumber"]
+                                                ["phonenumber"]
                                             .length))),
                           ),
                           decoration: const InputDecoration(
@@ -137,10 +137,10 @@ class _UserEditState extends State<UserEdit> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Container(
+          SizedBox(
             height: 40,
             child: Flex(
               direction: Axis.horizontal,
@@ -148,20 +148,20 @@ class _UserEditState extends State<UserEdit> {
                 Expanded(
                     flex: 3,
                     child: Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Text(
                         "邮箱",
-
                       ),
                     )),
                 Expanded(
                     flex: 7,
                     child: Container(
-                      margin: EdgeInsets.only(right: 20),
-                      padding: EdgeInsets.only(left: 5),
+                      margin: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                           border: Border.all(width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5))),
                       child: Container(
                         child: TextField(
                           onChanged: (value) {
@@ -186,10 +186,10 @@ class _UserEditState extends State<UserEdit> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Container(
+          SizedBox(
             height: 40,
             child: Flex(
               direction: Axis.horizontal,
@@ -197,8 +197,8 @@ class _UserEditState extends State<UserEdit> {
                 Expanded(
                     flex: 3,
                     child: Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Text(
                         "性别",
                       ),
                     )),
@@ -207,27 +207,25 @@ class _UserEditState extends State<UserEdit> {
                     child: Row(
                       children: [
                         _radioSexBox("1"),
-                        Text("男"),
+                        const Text("男"),
                         _radioSexBox("2"),
-                        Text("女"),
+                        const Text("女"),
                       ],
                     ))
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           Container(
               height: 45,
-              padding: EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: TextButton(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                    shape: MaterialStateProperty.all(
-                        const RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(5.0))))),
+                    backgroundColor: WidgetStateProperty.all(Colors.blue),
+                    shape: WidgetStateProperty.all(const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0))))),
                 onPressed: () async {
                   var data = await updateProfile(details["arg"]["data"]);
                   if (data.data["code"] == 200) {
@@ -236,11 +234,10 @@ class _UserEditState extends State<UserEdit> {
                   } else {
                     showDialog(
                         context: context,
-                        builder: (BuildContext context) =>
-                            AlertDialog(
+                        builder: (BuildContext context) => AlertDialog(
                               content: Text(
                                 data.data["msg"],
-                                style: TextStyle(color: Colors.cyan),
+                                style: const TextStyle(color: Colors.cyan),
                               ),
                             ));
                   }

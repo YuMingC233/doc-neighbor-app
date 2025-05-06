@@ -1,5 +1,6 @@
 abstract class AppRoutes {
   static const Login = "/login";
+  static const Register = "/register";
 
   static const Home = "/home";
 
@@ -34,7 +35,6 @@ abstract class AppRoutes {
   static const config = "/system/config/index";
 
   static const dict = "/system/dict/index";
-
 
   static const swagger = "/tool/swagger/index";
 }

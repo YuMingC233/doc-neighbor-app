@@ -9,20 +9,29 @@ class SwaggerIndex extends StatefulWidget {
 }
 
 class _SwaggerIndexState extends State<SwaggerIndex> {
+  late final WebViewController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse("https://mouor.cn:8081/swagger-ui/index.html"));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "系统接口",
-          style: const TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent, // 背景颜色设置为透明
         shadowColor: Colors.transparent,
       ),
-      body: WebView(
-        javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: "https://mouor.cn:8081/swagger-ui/index.html",
+      body: WebViewWidget(
+        controller: controller,
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ruoyi_app/icon/ruoyi_icon.dart';
+import 'package:dn_app/icon/ruoyi_icon.dart';
 
 import '../../api/system/user.dart';
 
@@ -52,14 +52,14 @@ class _MineIndexState extends State<MineIndex> {
     showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-              title: Text('切换角色'),
+              title: const Text('切换角色'),
               content: Text('是否要切换为$targetRoleName？'),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('取消'),
+                  child: const Text('取消'),
                 ),
                 TextButton(
                   onPressed: () {
@@ -74,11 +74,11 @@ class _MineIndexState extends State<MineIndex> {
 
                     // 使用Get导航到首页并清除所有之前的路由
                     // 使用Future.delayed确保pop操作完成后再执行导航
-                    Future.delayed(Duration(milliseconds: 100), () {
+                    Future.delayed(const Duration(milliseconds: 100), () {
                       Get.offAllNamed('/home');
                     });
                   },
-                  child: Text('确认'),
+                  child: const Text('确认'),
                 ),
               ],
             ));
@@ -89,14 +89,14 @@ class _MineIndexState extends State<MineIndex> {
     showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-              title: Text('注意'),
-              content: Text('该功能正在开发中，敬请期待！'),
+              title: const Text('注意'),
+              content: const Text('该功能正在开发中，敬请期待！'),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('确定'),
+                  child: const Text('确定'),
                 ),
               ],
             ));
@@ -124,7 +124,7 @@ class _MineIndexState extends State<MineIndex> {
                 // 移除ListView的内边距
                 padding: EdgeInsets.zero,
                 // 禁用ListView的滚动行为
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   Stack(
                     children: [
@@ -133,19 +133,23 @@ class _MineIndexState extends State<MineIndex> {
                         child: Container(
                           height: BlueHeight,
                           color: Colors.blue[600],
-                          padding: EdgeInsets.only(top: 80),
+                          padding: const EdgeInsets.only(top: 80),
                           child: ListTile(
                             onTap: () async {
-                              ///TODO 跳转信息详情页
-                              // var data = await getUserProfile().then((value) {
-                              //   if (value.data["code"] == 200) {
-                              //     Get.toNamed("/home/info",
-                              //         arguments: {"args": value.data});
-                              //   }
-                              // }, onError: (e) {
-                              //   print(e);
-                              // });
-                              _showUnderDevelopmentDialog();
+                              GetStorage().read("rawUserInfo") == null
+                                  ? Get.toNamed("/login")
+                                  : GetStorage().read("userName") == null
+                                      ? Get.toNamed("/login")
+                                      : null;
+                              var data = await getUserProfile().then((value) {
+                                if (value["code"] == 200) {
+                                  Get.toNamed("/home/info",
+                                      arguments: {"args": value["data"]});
+                                }
+                              }, onError: (e) {
+                                print(e);
+                              });
+                              // _showUnderDevelopmentDialog();
                             },
                             leading: ClipOval(
                               child: Image.asset(
@@ -164,7 +168,10 @@ class _MineIndexState extends State<MineIndex> {
                             ),
                             subtitle: Text(
                               // SPUtil().get("name"),
-                              GetStorage().read("roleGroup") ?? roleDisplayName,
+                              (GetStorage().read("rawUserInfo")?["user"]
+                                          ?["deptName"] ??
+                                      roleDisplayName) ??
+                                  "未知角色",
                               style: const TextStyle(color: Colors.white),
                             ),
                             trailing: const Icon(
@@ -186,7 +193,7 @@ class _MineIndexState extends State<MineIndex> {
                                   BorderRadius.all(Radius.circular(10.0))),
                           child: GridView.count(
                             physics:
-                                NeverScrollableScrollPhysics(), // Disable scrolling
+                                const NeverScrollableScrollPhysics(), // Disable scrolling
                             crossAxisCount: 4,
                             crossAxisSpacing: 10.0,
                             padding: const EdgeInsets.all(25.0),
@@ -195,15 +202,14 @@ class _MineIndexState extends State<MineIndex> {
                                 onTap: () {
                                   _showUnderDevelopmentDialog();
                                 },
-                                child: SingleChildScrollView(
+                                child: const SingleChildScrollView(
                                   physics:
                                       NeverScrollableScrollPhysics(), // Disable scrolling
                                   child: Column(
-                                    children: const [
+                                    children: [
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 5),
-                                        child: const Icon(
+                                        padding: EdgeInsets.only(bottom: 5),
+                                        child: Icon(
                                           Icons.supervisor_account_rounded,
                                           size: 35,
                                           color: Colors.redAccent,
@@ -214,14 +220,14 @@ class _MineIndexState extends State<MineIndex> {
                                   ),
                                 ),
                               ),
-                              SingleChildScrollView(
+                              const SingleChildScrollView(
                                 physics:
                                     NeverScrollableScrollPhysics(), // Disable scrolling
                                 child: Column(
-                                  children: const [
+                                  children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
-                                      child: const Icon(
+                                      padding: EdgeInsets.only(bottom: 5),
+                                      child: Icon(
                                         RuoYiIcons.service,
                                         size: 35,
                                         color: Colors.blue,
@@ -231,14 +237,14 @@ class _MineIndexState extends State<MineIndex> {
                                   ],
                                 ),
                               ),
-                              SingleChildScrollView(
+                              const SingleChildScrollView(
                                 physics:
                                     NeverScrollableScrollPhysics(), // Disable scrolling
                                 child: Column(
-                                  children: const [
+                                  children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
-                                      child: const Icon(
+                                      padding: EdgeInsets.only(bottom: 5),
+                                      child: Icon(
                                         RuoYiIcons.community,
                                         size: 35,
                                         color: Colors.blue,
@@ -250,15 +256,14 @@ class _MineIndexState extends State<MineIndex> {
                               ),
                               GestureDetector(
                                 onTap: _showRoleSwitchDialog,
-                                child: SingleChildScrollView(
+                                child: const SingleChildScrollView(
                                   physics:
                                       NeverScrollableScrollPhysics(), // Disable scrolling
                                   child: Column(
-                                    children: const [
+                                    children: [
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 5),
-                                        child: const Icon(
+                                        padding: EdgeInsets.only(bottom: 5),
+                                        child: Icon(
                                           RuoYiIcons.user,
                                           size: 35,
                                           color: Colors.blue,
@@ -286,7 +291,7 @@ class _MineIndexState extends State<MineIndex> {
                           ),
                           child: SingleChildScrollView(
                             physics:
-                                NeverScrollableScrollPhysics(), // Disable scrolling
+                                const NeverScrollableScrollPhysics(), // Disable scrolling
                             child: Column(
                               children: [
                                 ListTile(
@@ -297,17 +302,18 @@ class _MineIndexState extends State<MineIndex> {
                                     //     arguments: {"arg": value.data}));
                                     _showUnderDevelopmentDialog();
                                   },
-                                  leading: Icon(
+                                  leading: const Icon(
                                     Icons.perm_identity,
                                     color: Colors.blue,
                                   ),
-                                  title: Text(
+                                  title: const Text(
                                     "编辑资料",
                                     style: TextStyle(fontSize: 16),
                                   ),
-                                  trailing: Icon(Icons.keyboard_arrow_right),
+                                  trailing:
+                                      const Icon(Icons.keyboard_arrow_right),
                                 ),
-                                Divider(
+                                const Divider(
                                   thickness: 1,
                                 ),
                                 ListTile(
@@ -315,17 +321,18 @@ class _MineIndexState extends State<MineIndex> {
                                     ///TODO 跳转常见问题页
                                     await Get.toNamed("/home/help");
                                   },
-                                  leading: Icon(
+                                  leading: const Icon(
                                     Icons.help_outline,
                                     color: Colors.blue,
                                   ),
-                                  title: Text(
+                                  title: const Text(
                                     "常见问题",
                                     style: TextStyle(fontSize: 16),
                                   ),
-                                  trailing: Icon(Icons.keyboard_arrow_right),
+                                  trailing:
+                                      const Icon(Icons.keyboard_arrow_right),
                                 ),
-                                Divider(
+                                const Divider(
                                   thickness: 1,
                                 ),
                                 ListTile(
@@ -333,17 +340,18 @@ class _MineIndexState extends State<MineIndex> {
                                     ///TODO 跳转关于我们页
                                     await Get.toNamed("/home/about");
                                   },
-                                  leading: Icon(
+                                  leading: const Icon(
                                     Icons.favorite_border,
                                     color: Colors.blue,
                                   ),
-                                  title: Text(
+                                  title: const Text(
                                     "关于我们",
                                     style: TextStyle(fontSize: 16),
                                   ),
-                                  trailing: Icon(Icons.keyboard_arrow_right),
+                                  trailing:
+                                      const Icon(Icons.keyboard_arrow_right),
                                 ),
-                                Divider(
+                                const Divider(
                                   thickness: 1,
                                 ),
                                 ListTile(
@@ -351,15 +359,16 @@ class _MineIndexState extends State<MineIndex> {
                                     ///TODO 跳转应用设置页
                                     await Get.toNamed("/home/settings");
                                   },
-                                  leading: Icon(
+                                  leading: const Icon(
                                     Icons.settings,
                                     color: Colors.blue,
                                   ),
-                                  title: Text(
+                                  title: const Text(
                                     "应用设置",
                                     style: TextStyle(fontSize: 16),
                                   ),
-                                  trailing: Icon(Icons.keyboard_arrow_right),
+                                  trailing:
+                                      const Icon(Icons.keyboard_arrow_right),
                                 ),
                               ],
                             ),

@@ -14,7 +14,7 @@ class _UserIndexState extends State<UserIndex> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("用户管理"),
+          title: const Text("用户管理"),
         ),
         body: Container(
           child: SingleChildScrollView(
@@ -38,7 +38,7 @@ class _UserIndexState extends State<UserIndex> {
                 DataColumn(label: Text('创建时间')),
                 DataColumn(label: Text('操作')),
               ],
-              rows: [
+              rows: const [
                 DataRow(cells: [
                   DataCell(Text('1')),
                   DataCell(Text('admin')),
@@ -69,7 +69,7 @@ class _UserIndexState extends State<UserIndex> {
           child: ListView(
             children: [
               DrawerHeader(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
                 child: Center(
@@ -82,24 +82,24 @@ class _UserIndexState extends State<UserIndex> {
                   ),
                 ),
               ),
-              ListTile(
+              const ListTile(
                 leading: Icon(Icons.settings),
                 title: Text('设置'),
               ),
               TreeView(nodes: [
                 TreeNode(
-                  content: Text("若依科技"),
+                  content: const Text("若依科技"),
                   children: [
-                    TreeNode(content: Text("深圳总公司"), children: [
-                      TreeNode(content: Text("研发部门")),
-                      TreeNode(content: Text("市场部门")),
-                      TreeNode(content: Text("测试部门")),
-                      TreeNode(content: Text("财务部门")),
-                      TreeNode(content: Text("运维部门")),
+                    TreeNode(content: const Text("深圳总公司"), children: [
+                      TreeNode(content: const Text("研发部门")),
+                      TreeNode(content: const Text("市场部门")),
+                      TreeNode(content: const Text("测试部门")),
+                      TreeNode(content: const Text("财务部门")),
+                      TreeNode(content: const Text("运维部门")),
                     ]),
-                    TreeNode(content: Text("长沙分公司"), children: [
-                      TreeNode(content: Text("市场部门")),
-                      TreeNode(content: Text("财务部门")),
+                    TreeNode(content: const Text("长沙分公司"), children: [
+                      TreeNode(content: const Text("市场部门")),
+                      TreeNode(content: const Text("财务部门")),
                     ]),
                   ],
                 ),

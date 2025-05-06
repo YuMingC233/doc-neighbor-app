@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ruoyi_app/icon/ruoyi_icon.dart';
-import 'package:ruoyi_app/utils/sputils.dart';
+import 'package:dn_app/icon/ruoyi_icon.dart';
+import 'package:dn_app/utils/sputils.dart';
 
 import '../../login.dart';
 
@@ -28,7 +28,7 @@ class _SettingsState extends State<Settings> {
       body: Container(
         child: ListView(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
@@ -38,31 +38,31 @@ class _SettingsState extends State<Settings> {
                   border: Border.all(
                       width: 1,
                       style: BorderStyle.solid,
-                      color: Color.fromRGBO(241, 241, 241, 0.8)),
-                  borderRadius: BorderRadius.all(
+                      color: const Color.fromRGBO(241, 241, 241, 0.8)),
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(5),
                   )),
-              margin: EdgeInsets.only(top: 15, left: 15, right: 15),
+              margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
               child: Column(
                 children: [
                   ListTile(
                     onTap: () {
                       Get.toNamed("/home/settings/pwdIndex");
                     },
-                    leading: Icon(RuoYiIcons.password),
-                    title: Text("修改密码"),
-                    trailing: Icon(Icons.keyboard_arrow_right),
+                    leading: const Icon(RuoYiIcons.password),
+                    title: const Text("修改密码"),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
                     onTap: () {
                       Get.snackbar("已经是最新版本！", "");
                     },
-                    leading: Icon(RuoYiIcons.refresh),
-                    title: Text("检查更新"),
-                    trailing: Icon(Icons.keyboard_arrow_right),
+                    leading: const Icon(RuoYiIcons.refresh),
+                    title: const Text("检查更新"),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
                     onTap: () {
                       Get.snackbar("清理成功", "");
@@ -72,23 +72,23 @@ class _SettingsState extends State<Settings> {
                       SPUtil().clean();
                       SPUtil().setString("token", token);
                     },
-                    leading: Icon(RuoYiIcons.clean),
-                    title: Text("清理缓存"),
-                    trailing: Icon(Icons.keyboard_arrow_right),
+                    leading: const Icon(RuoYiIcons.clean),
+                    title: const Text("清理缓存"),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
                   ),
                 ],
               ),
             ),
             Container(
                 height: 45,
-                margin: EdgeInsets.only(left: 15, right: 15, top: 45),
+                margin: const EdgeInsets.only(left: 15, right: 15, top: 45),
                 child: TextButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue),
-                      shape: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(Colors.blue),
+                      shape: WidgetStateProperty.all(
                           const RoundedRectangleBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(5.0))))),
+                                  BorderRadius.all(Radius.circular(5.0))))),
                   onPressed: () {
                     Get.defaultDialog(
                         title: "系统提示",
