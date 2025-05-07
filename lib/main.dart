@@ -42,11 +42,11 @@ class MyApp extends StatelessWidget {
       initialRoute: GetStorage().read("initialRoute"),
       getPages: AppPages.routes,
       routingCallback: (routing) {
-        if (routing?.current != "/login" &&
-            routing?.current != "/login/webView" &&
-            routing?.current != "/register") {
-          getInfo();
-        }
+        // if (routing?.current != "/login" &&
+        //     routing?.current != "/login/webView" &&
+        //     routing?.current != "/register") {
+        //   getInfo();
+        // }
       },
     );
   }

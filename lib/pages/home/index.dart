@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:dn_app/pages/nearby_doctor/index.dart';
 import 'package:dn_app/pages/mine/index.dart'; // 导入UserRoleManager
 
@@ -23,8 +22,6 @@ class _HomeIndexState extends State<HomeIndex> {
     UserRoleManager().initUserRole();
 
     // 模拟一段时间后收到紧急请求
-    Future.delayed(Duration(seconds: 5), () {
-      if (mounted) {
     Future.delayed(const Duration(seconds: 5), () {
       if (mounted) {
         setState(() {
