@@ -381,8 +381,8 @@ class _LoginIndexState extends State<LoginIndex> {
                         }
                         var requestData = {
                           "uuid": uuid,
-                          "username": username,
-                          "password": password,
+                          "username": username.trim(),
+                          "password": password.trim(),
                           "code": code,
                           "role": role // 添加角色选择
                         };

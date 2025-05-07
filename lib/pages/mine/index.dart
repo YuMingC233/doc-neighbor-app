@@ -28,39 +28,61 @@ class _MineIndexState extends State<MineIndex> {
     String targetRole = currentRole == '0' ? '1' : '0';
     String targetRoleName = targetRole == '0' ? '普通用户' : '医生';
 
-    showDialog(
+    if (UserRoleManager().isDoctor == false) {
+      // 如果当前用户不是医生，则不允许切换到医生角色
+      showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-              title: const Text('切换角色'),
-              content: Text('是否要切换为$targetRoleName？'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('取消'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // 先关闭对话框
-                    Navigator.of(context).pop();
+          title: const Text("权限提醒"),
+          content: const Text(
+            "您的账号尚未通过医生认证，请先完成认证。",
+            style: TextStyle(color: Colors.orange),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // 关闭对话框
+              },
+              child: const Text("我知道了"),
+            ),
+          ],
+        ),
+      );
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('切换角色'),
+                content: Text('是否要切换为$targetRoleName？'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('取消'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // 先关闭对话框
+                      Navigator.of(context).pop();
 
-                    // 切换角色
-                    UserRoleManager().setUserRole(targetRole);
+                      // 切换角色
+                      UserRoleManager().setUserRole(targetRole);
 
-                    // 更新UI
-                    setState(() {});
+                      // 更新UI
+                      setState(() {});
 
-                    // 使用Get导航到首页并清除所有之前的路由
-                    // 使用Future.delayed确保pop操作完成后再执行导航
-                    Future.delayed(const Duration(milliseconds: 100), () {
-                      Get.offAllNamed('/home');
-                    });
-                  },
-                  child: const Text('确认'),
-                ),
-              ],
-            ));
+                      // 使用Get导航到首页并清除所有之前的路由
+                      // 使用Future.delayed确保pop操作完成后再执行导航
+                      Future.delayed(const Duration(milliseconds: 100), () {
+                        Get.offAllNamed('/home');
+                      });
+                    },
+                    child: const Text('确认'),
+                  ),
+                ],
+              ));
+    }
   }
 
   // 显示功能正在开发中的提示

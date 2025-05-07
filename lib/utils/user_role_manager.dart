@@ -9,8 +9,10 @@ class UserRoleManager {
   UserRoleManager._internal();
 
   String _userRole = '0'; // 默认为普通用户：'0'，医生：'1'
+  bool _isDoctor = false; // 表示用户是否拥有医生权限
 
   String get userRole => _userRole;
+  bool get isDoctor => _isDoctor; // 获取用户是否拥有医生权限
 
   /// 设置用户角色并保存到本地存储
   void setUserRole(String role) {
@@ -23,6 +25,8 @@ class UserRoleManager {
   void initUserRole() {
     // 从存储中获取角色，如果没有则默认为'0'
     _userRole = GetStorage().read("userRole") ?? '0';
+    // 从存储中获取医生权限，如果没有则默认为false
+    _isDoctor = GetStorage().read("isDoctor") ?? false;
   }
 
   /// 根据登录返回的用户数据初始化用户角色
@@ -36,5 +40,9 @@ class UserRoleManager {
     // 保存用户角色
     UserRoleManager()._userRole = role;
     GetStorage().write("userRole", role);
+
+    // 保存用户医生权限
+    UserRoleManager()._isDoctor = isDoctor;
+    GetStorage().write("isDoctor", isDoctor);
   }
 }
