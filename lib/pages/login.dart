@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
 import 'package:dn_app/icon/ruoyi_icon.dart';
+import 'package:dn_app/utils/user_role_manager.dart'; // 导入UserRoleManager
 
 import '../api/login.dart';
 
@@ -59,6 +60,7 @@ class _LoginIndexState extends State<LoginIndex> {
   var tenantId = "";
   var tenantEnabled = false;
   var tenantList = [];
+  var role = "0"; // 添加角色变量，默认为普通用户，0为普通用户，1为医生
 
   @override
   // ignore: must_call_super
@@ -260,8 +262,57 @@ class _LoginIndexState extends State<LoginIndex> {
                                 ))),
                       ],
                     )),
+
                 const SizedBox(
-                  height: 45,
+                  height: 25,
+                ),
+                // 添加角色选择下拉框
+                Container(
+                  height: 50,
+                  padding: const EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(25.0)),
+                      border: Border.all(width: 1.0)),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: role,
+                      isExpanded: true,
+                      icon: const Icon(Icons.arrow_drop_down),
+                      hint: const Text("请选择用户角色"),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          role = newValue!;
+                        });
+                      },
+                      items: const [
+                        DropdownMenuItem<String>(
+                          value: "0",
+                          child: Row(
+                            children: [
+                              Icon(Icons.person, size: 20),
+                              SizedBox(width: 10),
+                              Text("普通用户"),
+                            ],
+                          ),
+                        ),
+                        DropdownMenuItem<String>(
+                          value: "1",
+                          child: Row(
+                            children: [
+                              Icon(Icons.medical_services, size: 20),
+                              SizedBox(width: 10),
+                              Text("医生"),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 25,
                 ),
                 Center(
                   child: TextButton(
@@ -332,7 +383,8 @@ class _LoginIndexState extends State<LoginIndex> {
                           "uuid": uuid,
                           "username": username,
                           "password": password,
-                          "code": code
+                          "code": code,
+                          "role": role // 添加角色选择
                         };
 
                         // 如果启用了租户功能并且选择了租户，则添加租户ID到请求数据中
@@ -343,8 +395,54 @@ class _LoginIndexState extends State<LoginIndex> {
                         var data = await logInByClient(requestData);
 
                         if (data["code"] == 200) {
+                          var rawData = data["data"];
+                          // 检查是否为医生身份
+                          bool isDoctor = rawData["isDoctor"] ?? false;
+
+                          // 如果选择了医生角色但没有医生权限
+                          if (role == "1" && !isDoctor) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text("权限提醒"),
+                                content: const Text(
+                                  "您选择了医生身份，但账号尚未通过医生认证，请先完成认证。",
+                                  style: TextStyle(color: Colors.orange),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // 关闭对话框
+                                      // 可以导航到医生认证页面
+                                      // Get.toNamed("/doctorVerification");
+                                      Get.toNamed("/home");
+                                    },
+                                    child: const Text("我知道了"),
+                                  ),
+                                ],
+                              ),
+                            );
+                            getImg(); // 刷新验证码
+                            return;
+                          } else if (role == "1" && isDoctor) {
+                            // 如果用户选择医生角色且确实有医生权限
+                            // 将医生标志保存到用户管理器中
+                            UserRoleManager.init(rawData);
+                            Get.toNamed("/home", arguments: {"isDoctor": true});
+                            return;
+                          } else {
+                            // 普通用户登录，继续默认流程
+                          }
+
+                          // 如果选择了普通用户但有医生权限，医生权限大于用户权限，按医生处理
+                          // 直接进入主页，后续可以根据isDoctor参数在主页进行不同显示
+
+                          // 初始化UserRoleManager
+                          UserRoleManager.init(rawData);
+
                           // ignore: use_build_context_synchronously
-                          Get.toNamed("/home");
+                          Get.toNamed("/home",
+                              arguments: {"isDoctor": isDoctor});
                         } else {
                           showDialog(
                               context: context,
