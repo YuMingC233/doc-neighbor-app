@@ -45,7 +45,12 @@ dependencies:
   flutter_simple_treeview: ^3.0.1
   encrypt: ^5.0.1  # 用于加密操作
   crypto: ^3.0.2   # 用于哈希函数
-
+  flutter_baidu_mapapi_map: ^3.3.1  # 百度地图核心组件 
+  flutter_baidu_mapapi_base: ^3.3.1  # 百度地图基础库
+  flutter_baidu_mapapi_search: ^3.3.1  # 百度地图搜索功能
+  flutter_baidu_mapapi_utils: ^3.3.1  # 百度地图工具类
+  permission_handler: ^10.0.0  # 权限处理
+  location: ^4.4.0  # 获取用户位置
 
 dev_dependencies:
   flutter_test:

@@ -47,5 +47,25 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<!-- 定位权限描述 -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App需要您的同意，才能在使用期间访问位置信息，以提供紧急医疗位置共享服务</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>App需要您的同意，才能始终访问位置信息，以提供紧急医疗位置共享服务</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App需要您的同意，才能始终访问位置信息，以提供紧急医疗位置共享服务</string>
+	
+	<!-- 百度地图所需权限 -->
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>BMKMapAPIKey</key>
+	<string>kqveHUXZZvLaAmQMSrz0GtmUbCWW06Xa</string>
+	
 </dict>
 </plist>

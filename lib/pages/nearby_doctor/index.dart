@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:dn_app/widgets/navigation_map.dart'; // 导入导航地图组件
 
 class NearbyDoctorPage extends StatefulWidget {
   const NearbyDoctorPage({Key? key}) : super(key: key);
@@ -203,21 +204,10 @@ class _NearbyDoctorPageState extends State<NearbyDoctorPage> {
               borderRadius: BorderRadius.circular(8),
             ),
             margin: const EdgeInsets.only(bottom: 16),
-            child: const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.map,
-                      size: 40, color: Color(0xFF9CA3AF)), // text-gray-400
-                  SizedBox(width: 8),
-                  Text(
-                    "实时位置共享",
-                    style: TextStyle(
-                      color: Color(0xFF6B7280), // text-gray-500
-                    ),
-                  ),
-                ],
-              ),
+            child: const NavigationMap(
+              patientLatitude: 30.5168, // 这里使用模拟的患者位置坐标，实际中应该从服务端获取
+              patientLongitude: 114.3433, // 武汉市大致坐标
+              patientAddress: "武汉市洪山区珞瑜路",
             ),
           ),
 
