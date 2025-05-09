@@ -35,18 +35,13 @@ pod install
     医生资质审核  
 
 
-
-
-
 ## 演示截图&视频
+https://github.com/user-attachments/assets/7ec944a3-63a0-43db-9b24-887cbb1a6d71
+
 <table>
     <tr>
         <td><img src="./screenshot/281746769774_.pic_hd.jpg"/></td>
-        <td>
-            <video id="video" controls="" preload="none" poster="封面">
-                <source id="mp4" src="./screenshot/30_1746770002_raw.mp4" type="video/mp4">
-            </videos>
-        </td>
+        <td><img src="./screenshot/271746769773_.pic_hd.jpg"/></td>
         <td><img src="./screenshot/291746769775_.pic_hd.jpg"/></td>
     </tr>
     <tr>
@@ -56,10 +51,5 @@ pod install
     </tr>
      <tr>
         <td><img src="./screenshot/261746769772_.pic_hd.jpg"/></td>
-        <td><img src="./screenshot/271746769773_.pic_hd.jpg"/></td>
     </tr>
 </table>
-
- 
-
-
