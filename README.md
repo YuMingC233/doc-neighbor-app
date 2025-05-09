@@ -42,7 +42,11 @@ pod install
 <table>
     <tr>
         <td><img src="./screenshot/281746769774_.pic_hd.jpg"/></td>
-        <td><video src="./screenshot/30_1746770002_raw.mp4"></video></td>
+        <td>
+            <video id="video" controls="" preload="none" poster="封面">
+                <source id="mp4" src="./screenshot/30_1746770002_raw.mp4" type="video/mp4">
+            </videos>
+        </td>
         <td><img src="./screenshot/291746769775_.pic_hd.jpg"/></td>
     </tr>
     <tr>
