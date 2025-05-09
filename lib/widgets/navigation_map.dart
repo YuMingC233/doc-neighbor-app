@@ -63,9 +63,9 @@ class _NavigationMapState extends State<NavigationMap> {
     });
 
     // 每30秒重新计算一次路线
-    _refreshTimer = Timer.periodic(const Duration(seconds: 30), (_) {
-      _calculateRoute();
-    });
+    // _refreshTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+    //   _calculateRoute();
+    // });
   }
 
   // 更新路线信息
@@ -83,17 +83,17 @@ class _NavigationMapState extends State<NavigationMap> {
   }
 
   // 计算路线
-  Future<void> _calculateRoute() async {
-    final routeResult = await _mapService.calculateWalkingRoute();
-    if (routeResult != null && mounted) {
-      setState(() {
-        _routeResult = routeResult;
-      });
+  // Future<void> _calculateRoute() async {
+  //   final routeResult = await _mapService.calculateWalkingRoute();
+  //   if (routeResult != null && mounted) {
+  //     setState(() {
+  //       _routeResult = routeResult;
+  //     });
 
-      // 绘制路线
-      _mapService.drawRouteOnMap(routeResult);
-    }
-  }
+  //     // 绘制路线
+  //     _mapService.drawRouteOnMap(routeResult);
+  //   }
+  // }
 
   // 创建地图视图
   Future<BMFMapController?> _onBMFMapCreated(
@@ -112,20 +112,15 @@ class _NavigationMapState extends State<NavigationMap> {
     BMFUserTrackingMode trackingMode = BMFUserTrackingMode.Follow;
     await controller.setUserTrackingMode(trackingMode);
 
-    // 设置地图缩放级别
-    await controller.updateMapOptions(BMFMapOptions(
-      zoomLevel: 16,
-    ));
-
     // 设置患者位置
-    if (_mapService.patientLocation != null) {
+    if (_mapService.patientLocation != null && false) {
       // 创建患者位置标记
-      BMFMarker patientMarker = BMFMarker(
+      BMFMarker patientMarker = BMFMarker.icon(
         position: _mapService.patientLocation!.coordinate!,
         title: "患者位置",
         subtitle: widget.patientAddress,
         identifier: "patient_marker",
-        icon: "static/images/patient_marker.png", // 确保此图片存在于项目资源中
+        icon: "static/images/tabbar/mine_.png", // 确保此图片存在于项目资源中
       );
 
       // 添加标记到地图
@@ -133,7 +128,7 @@ class _NavigationMapState extends State<NavigationMap> {
     }
 
     // 计算并绘制路线
-    _calculateRoute();
+    // _calculateRoute();
 
     setState(() {
       _isMapReady = true;
@@ -165,6 +160,7 @@ class _NavigationMapState extends State<NavigationMap> {
               child: BMFMapWidget(
                 onBMFMapCreated: _onBMFMapCreated,
                 mapOptions: BMFMapOptions(
+                  mapType: BMFMapType.Standard,
                   center: BMFCoordinate(
                       widget.patientLatitude, widget.patientLongitude),
                   zoomLevel: 16,
@@ -177,7 +173,7 @@ class _NavigationMapState extends State<NavigationMap> {
         ),
 
         // 导航信息
-        if (_isMapReady)
+        if (_isMapReady && false)
           Container(
             margin: const EdgeInsets.only(top: 16),
             padding: const EdgeInsets.all(16),

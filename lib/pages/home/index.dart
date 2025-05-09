@@ -318,10 +318,11 @@ class _HomeIndexState extends State<HomeIndex> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
             ),
+            // https://lbs.qq.com/getPoint/
             child: const NavigationMap(
-              patientLatitude: 30.5168, // 这里使用模拟的患者位置坐标，实际中应该从服务端获取
-              patientLongitude: 114.3433, // 武汉市大致坐标
-              patientAddress: "武汉市洪山区珞瑜路",
+              patientLatitude: 28.184629, // 这里使用模拟的患者位置坐标，实际中应该从服务端获取
+              patientLongitude: 112.994077,
+              patientAddress: "湖南省长沙市雨花区梓园路455-1号",
             ),
           ),
           const SizedBox(height: 16),

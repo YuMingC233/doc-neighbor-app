@@ -158,6 +158,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.9.1"
+  flutter_bmflocation:
+    dependency: "direct main"
+    description:
+      name: flutter_bmflocation
+      sha256: "373aa91709f71e4c39874f5026e338d68e8d7bc41bb5277bb57c124c344953b3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.1"
   flutter_lints:
     dependency: "direct dev"
     description:

@@ -36,7 +36,7 @@ class DioRequest {
   // 重登录标记
   static bool _isRelogin = false;
   // 认证客户端id，静态字段
-  static const String clientId = "428a8310cd442757ae699df5d894f051";
+  static const String clientId = "0374f87a74fb14c09137345e48061d70";
 
   /// 构造函数
   DioRequest() {
@@ -158,7 +158,7 @@ class DioRequest {
         if (response.requestOptions.path == "/auth/login") {
           if (response.data["code"] == HttpStatus.SUCCESS) {
             var info = response.data["data"];
-            print("respone info: $info");
+            // print("respone info: $info");
 
             GetStorage().write("token", info["access_token"]);
             SPUtil().setString("token", info["access_token"]);
