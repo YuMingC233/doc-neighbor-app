@@ -1,6 +1,6 @@
 
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">RuoYi Flutter APPv1.0.0</h1>
-<h4 align="center">基于flutter 框架</h4>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">医邻救援 V1.0</h1>
+<h4 align="center">基于 ruoyi flutter 框架</h4>
 
 # quick start
 ```
@@ -18,25 +18,41 @@ rm -rf Pods, Podfile
 pod install
 ```
 
-## 平台简介
+## 简介
+1. 愿景  
+    充分利用空闲的医疗资源，有效的在黄金时间救助危急病人  
 
-RuoYi flutter App 客户端,APP解决方案，采用Flutter框架，一份代码多终端适配，同时支持Windows ,ios ,mac ,linux , android ,web！实现了与[RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue)对接的移动解决方案！目前已经实现登录、我的、工作台、等基础功能。
+2. 功能  
+    根据症状同城精确匹配  
+    摇一摇快速匹配  
+    紧急问题点按按钮快速匹配  
+    ｜ 类似于apple的紧急呼叫  
+
+3. 需要实现  
+    根据目前设备地址快速匹配附近注册的医生身份用户  
+    订单系统  
+    ｜ 有偿增值服务  
+    医生资质审核  
 
 
-## 技术文档
 
 
-## 演示图
+
+## 演示截图&视频
 <table>
     <tr>
-        <td><img src="https://mouor001.oss-cn-beijing.aliyuncs.com/login.png"/></td>
-        <td><img src="https://mouor001.oss-cn-beijing.aliyuncs.com/work.png"/></td>
-        <td><img src="https://mouor001.oss-cn-beijing.aliyuncs.com/my.png"/></td>
+        <td><img src="./screenshot/281746769774_.pic_hd.jpg"/></td>
+        <td><video src="./screenshot/30_1746770002_raw.mp4"></video></td>
+        <td><img src="./screenshot/291746769775_.pic_hd.jpg"/></td>
+    </tr>
+    <tr>
+        <td><img src="./screenshot/231746769766_.pic_hd.jpg"/></td>
+        <td><img src="./screenshot/241746769771_.pic_hd.jpg"/></td>
+        <td><img src="./screenshot/251746769772_.pic_hd.jpg"/></td>
     </tr>
      <tr>
-         <td><img src="https://mouor001.oss-cn-beijing.aliyuncs.com/info.png"/></td>
-        <td><img src="https://mouor001.oss-cn-beijing.aliyuncs.com/settings.png"/></td>
-        <td><img src="https://mouor001.oss-cn-beijing.aliyuncs.com/editpwd.png"/></td>
+        <td><img src="./screenshot/261746769772_.pic_hd.jpg"/></td>
+        <td><img src="./screenshot/271746769773_.pic_hd.jpg"/></td>
     </tr>
 </table>
 

@@ -30,7 +30,7 @@ class _NavigationMapState extends State<NavigationMap> {
   bool _isMapReady = false;
 
   // 路线规划结果
-  BMFWalkingRouteResult? _routeResult;
+  // BMFWalkingRouteResult? _routeResult;
 
   // 刷新定时器
   Timer? _refreshTimer;
