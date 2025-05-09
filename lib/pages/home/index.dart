@@ -134,7 +134,7 @@ class _HomeIndexState extends State<HomeIndex> {
             // 顶部蓝色标题栏
             Container(
               padding: const EdgeInsets.all(16),
-              color: Colors.blue[600],
+              color: Colors.red[600],
               width: double.infinity,
               child: const SafeArea(
                 bottom: false,

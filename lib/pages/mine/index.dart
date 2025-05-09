@@ -133,7 +133,9 @@ class _MineIndexState extends State<MineIndex> {
                       alignment: const FractionalOffset(0.5, 0),
                       child: Container(
                         height: BlueHeight,
-                        color: Colors.blue[600],
+                        color: UserRoleManager().userRole == '0'
+                            ? Colors.blue[600]
+                            : Colors.red[600],
                         padding: const EdgeInsets.only(top: 80),
                         child: ListTile(
                           onTap: () async {
@@ -169,10 +171,7 @@ class _MineIndexState extends State<MineIndex> {
                           ),
                           subtitle: Text(
                             // SPUtil().get("name"),
-                            (GetStorage().read("rawUserInfo")?["user"]
-                                        ?["deptName"] ??
-                                    roleDisplayName) ??
-                                "未知角色",
+                            roleDisplayName,
                             style: const TextStyle(color: Colors.white),
                           ),
                           trailing: const Icon(
